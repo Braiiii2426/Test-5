@@ -1,0 +1,4471 @@
+/* ============================================================
+FOR YOU, AS ALWAYS
+Main Stylesheet
+============================================================ */
+
+
+/* ============================================================
+1. ROOT VARIABLES
+============================================================ */
+
+:root {
+
+--background: #0b0614;
+--background-light: #130a22;
+--purple: #9b6cff;
+--light-purple: #c7a6ff;
+--soft-purple: #a98cff;
+--lavender: #d8c2ff;
+
+--white: #f8f4ff;
+--soft-white: rgba(248, 244, 255, 0.78);
+
+--glow: rgba(155, 108, 255, 0.7);
+--soft-glow: rgba(155, 108, 255, 0.25);
+
+--rose: #d978a9;
+--rose-light: #f1a8ca;
+
+--serif: "Cormorant Garamond", Georgia, serif;
+--sans: "Montserrat", Arial, sans-serif;
+
+--transition: 0.8s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* ============================================================
+2. RESET
+============================================================ */
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+
+html {
+scroll-behavior: smooth;
+}
+
+
+body {
+
+min-height: 100vh;
+
+background:
+radial-gradient(
+circle at 50% 20%,
+rgba(25, 45, 100, 0.20),
+transparent 40%
+),
+radial-gradient(
+circle at 10% 80%,
+rgba(15, 35, 85, 0.15),
+transparent 35%
+),
+#060b1c;
+
+color: var(--white);
+
+font-family: var(--sans);
+
+overflow-x: hidden;
+}
+
+
+/* ============================================================
+3. BACKGROUND ATMOSPHERE
+============================================================ */
+
+.background-effects {
+
+position: fixed;
+
+inset: 0;
+
+width: 100%;
+height: 100%;
+
+pointer-events: none;
+
+overflow: hidden;
+
+z-index: 0;
+}
+
+
+.background-effects::before {
+
+content: "";
+
+position: absolute;
+
+width: 600px;
+height: 600px;
+
+left: 50%;
+top: 30%;
+
+transform: translate(-50%, -50%);
+
+background:
+radial-gradient(
+circle,
+rgba(118, 67, 194, 0.14),
+transparent 70%
+);
+
+filter: blur(40px);
+
+animation:
+atmospherePulse 8s ease-in-out infinite;
+}
+
+
+@keyframes atmospherePulse {
+
+0%, 100% {
+transform:
+translate(-50%, -50%)
+scale(0.9);
+opacity: 0.6;
+}
+
+50% {
+transform:
+translate(-50%, -50%)
+scale(1.15);
+opacity: 1;
+}
+}
+
+
+/* ============================================================
+4. BACKGROUND PARTICLES
+============================================================ */
+
+.background-particle {
+
+position: absolute;
+
+border-radius: 50%;
+
+background: var(--lavender);
+
+box-shadow:
+0 0 5px var(--lavender),
+0 0 12px var(--purple);
+
+opacity: 0;
+
+animation:
+particlePulse
+ease-in-out
+infinite;
+}
+
+
+@keyframes particlePulse {
+
+0% {
+opacity: 0;
+transform: scale(0.5);
+}
+
+50% {
+opacity: 0.8;
+transform: scale(1);
+}
+
+100% {
+opacity: 0;
+transform: scale(0.5);
+}
+}
+
+
+/* ============================================================
+5. GLOWING DECORATIVE LINES
+============================================================ */
+
+.glow-line {
+
+position: absolute;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--purple),
+transparent
+);
+
+box-shadow:
+0 0 5px var(--purple),
+0 0 15px var(--purple),
+0 0 30px rgba(155,108,255,.5);
+
+opacity: 0.4;
+
+animation: lineGlow 5s ease-in-out infinite;
+}
+
+
+.line-one {
+
+width: 45%;
+
+top: 20%;
+
+left: -10%;
+
+transform: rotate(-18deg);
+}
+
+
+.line-two {
+
+width: 35%;
+
+right: -5%;
+
+top: 65%;
+
+transform: rotate(22deg);
+
+animation-delay: 2s;
+}
+
+
+.line-three {
+
+width: 30%;
+
+left: 20%;
+
+bottom: 10%;
+
+transform: rotate(-8deg);
+
+animation-delay: 3s;
+}
+
+
+@keyframes lineGlow {
+
+0%, 100% {
+opacity: 0.15;
+}
+
+50% {
+opacity: 0.55;
+}
+}
+
+
+/* ============================================================
+6. FALLING EFFECTS
+============================================================ */
+
+.falling-object {
+
+position: absolute;
+
+top: -60px;
+
+z-index: 1;
+
+pointer-events: none;
+
+user-select: none;
+
+opacity: 0;
+
+animation-name: falling;
+animation-timing-function: linear;
+animation-fill-mode: forwards;
+
+text-shadow:
+0 0 5px currentColor,
+0 0 15px currentColor,
+0 0 30px currentColor;
+}
+
+
+@keyframes falling {
+
+0% {
+
+transform:
+translate3d(0, -80px, 0)
+rotate(0deg)
+scale(0.7);
+
+opacity: 0;
+}
+
+10% {
+opacity: 0.8;
+}
+
+50% {
+
+transform:
+translate3d(
+var(--drift),
+50vh,
+0
+)
+rotate(
+calc(var(--rotation) / 2)
+)
+scale(1);
+
+opacity: 0.65;
+}
+
+90% {
+opacity: 0.25;
+}
+
+100% {
+
+transform:
+translate3d(
+calc(var(--drift) * -0.4),
+115vh,
+0
+)
+rotate(var(--rotation))
+scale(0.5);
+
+opacity: 0;
+}
+}
+
+
+.falling-heart {
+color: #c792ff;
+}
+
+
+.falling-rose {
+
+filter:
+drop-shadow(
+0 0 8px rgba(235, 130, 180, .8)
+);
+}
+
+
+.falling-sparkle {
+
+color: #e2d0ff;
+
+animation-name: sparkleFall;
+}
+
+
+@keyframes sparkleFall {
+
+0% {
+
+transform:
+translateY(-80px)
+rotate(0deg)
+scale(0);
+
+opacity: 0;
+}
+
+15% {
+opacity: 1;
+transform:
+translateY(10vh)
+rotate(120deg)
+scale(1.2);
+}
+
+50% {
+
+transform:
+translate(
+var(--drift),
+55vh
+)
+rotate(300deg)
+scale(0.8);
+}
+
+100% {
+
+transform:
+translate(
+calc(var(--drift) * -0.5),
+110vh
+)
+rotate(700deg)
+scale(0);
+
+opacity: 0;
+}
+}
+
+
+.falling-star {
+
+color: #d9c3ff;
+
+animation-name: starFall;
+}
+
+
+@keyframes starFall {
+
+0% {
+transform:
+translateY(-50px)
+rotate(0deg);
+opacity: 0;
+}
+
+15% {
+opacity: 1;
+}
+
+50% {
+
+transform:
+translate(
+var(--drift),
+50vh
+)
+rotate(180deg);
+
+}
+
+100% {
+
+transform:
+translate(
+calc(var(--drift) * -0.5),
+110vh
+)
+rotate(500deg);
+
+opacity: 0;
+}
+}
+
+
+.falling-dot {
+
+color: #b996e8;
+
+opacity: 0.5;
+
+text-shadow:
+0 0 8px #b996e8;
+}
+
+
+.falling-petal {
+
+color: #dca3c5;
+
+animation-name: petalFall;
+}
+
+
+@keyframes petalFall {
+
+0% {
+
+transform:
+translateY(-60px)
+rotate(0deg);
+
+opacity: 0;
+}
+
+15% {
+opacity: 0.8;
+}
+
+30% {
+
+transform:
+translate(
+calc(var(--drift) * -0.5),
+30vh
+)
+rotate(120deg);
+}
+
+65% {
+
+transform:
+translate(
+var(--drift),
+70vh
+)
+rotate(280deg);
+}
+
+100% {
+
+transform:
+translate(
+calc(var(--drift) * -0.3),
+110vh
+)
+rotate(500deg);
+
+opacity: 0;
+}
+}
+
+
+.falling-diamond {
+
+color: #aa8bff;
+
+animation-name: diamondFall;
+}
+
+
+@keyframes diamondFall {
+
+0% {
+
+transform:
+translateY(-70px)
+rotate(0deg)
+scale(0);
+
+opacity: 0;
+}
+
+15% {
+opacity: 0.8;
+transform:
+translateY(10vh)
+rotate(90deg)
+scale(1);
+}
+
+100% {
+
+transform:
+translate(
+var(--drift),
+110vh
+)
+rotate(600deg)
+scale(0.3);
+
+opacity: 0;
+}
+}
+
+
+.falling-particle {
+
+color: #d8c8ff;
+
+font-size: 8px !important;
+
+animation-name: tinyParticleFall;
+}
+
+
+@keyframes tinyParticleFall {
+
+0% {
+transform:
+translateY(-40px)
+scale(0);
+
+opacity: 0;
+}
+
+20% {
+opacity: 0.7;
+}
+
+100% {
+
+transform:
+translate(
+var(--drift),
+110vh
+)
+scale(0);
+
+opacity: 0;
+}
+}
+
+
+/* ============================================================
+7. ENTRANCE SCREEN
+============================================================ */
+
+.entrance-screen {
+
+position: fixed;
+
+inset: 0;
+
+width: 100%;
+height: 100vh;
+
+min-height: 600px;
+
+display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+
+align-items: center;
+
+text-align: center;
+
+z-index: 100;
+
+background:
+
+radial-gradient(
+circle at center,
+rgba(82, 42, 137, 0.2),
+transparent 40%
+),
+
+linear-gradient(
+135deg,
+#08040e,
+#120820,
+#08040e
+);
+
+transition:
+opacity 1.2s ease,
+transform 1.2s ease,
+visibility 1.2s;
+}
+
+
+.entrance-screen.opening {
+
+opacity: 0;
+
+transform: scale(1.15);
+
+visibility: hidden;
+
+pointer-events: none;
+}
+
+
+/* ============================================================
+8. FLOATING ENTRANCE ROSE
+============================================================ */
+
+.entrance-rose {
+
+position: absolute;
+
+top: 12%;
+
+font-size: 48px;
+
+filter:
+drop-shadow(
+0 0 8px rgba(230, 120, 180, .6)
+)
+drop-shadow(
+0 0 20px rgba(155, 108, 255, .4)
+);
+
+animation:
+floatingRose
+4s
+ease-in-out
+infinite;
+
+z-index: 4;
+}
+
+
+@keyframes floatingRose {
+
+0%, 100% {
+
+transform:
+translateY(0)
+rotate(-4deg);
+
+}
+
+50% {
+
+transform:
+translateY(-15px)
+rotate(4deg);
+
+}
+}
+
+
+/* ============================================================
+9. HEART ENTRANCE
+============================================================ */
+
+.heart-entrance {
+
+position: relative;
+
+width: 210px;
+height: 190px;
+
+border: none;
+
+background: transparent;
+
+cursor: pointer;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+z-index: 5;
+
+transform: rotate(-45deg);
+
+transition:
+transform .5s ease;
+}
+
+
+.heart-entrance::before,
+.heart-entrance::after {
+
+content: "";
+
+position: absolute;
+
+width: 140px;
+height: 140px;
+
+background:
+radial-gradient(
+circle at 30% 25%,
+#b990ff,
+#7042a9 45%,
+#351651 100%
+);
+
+border:
+1px solid rgba(216,194,255,.7);
+
+box-shadow:
+
+inset
+0 0 25px
+rgba(255,255,255,.08),
+
+0 0 10px
+rgba(170,120,255,.7),
+
+0 0 30px
+rgba(155,108,255,.55),
+
+0 0 70px
+rgba(155,108,255,.25);
+
+border-radius: 70px 70px 12px 70px;
+
+transition:
+box-shadow .5s ease;
+}
+
+
+.heart-entrance::before {
+
+top: 0;
+left: 35px;
+}
+
+
+.heart-entrance::after {
+
+top: 35px;
+left: 0;
+}
+
+
+.heart-content {
+
+position: relative;
+
+z-index: 10;
+
+transform: rotate(45deg);
+
+width: 150px;
+
+pointer-events: none;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+gap: 5px;
+}
+
+
+.heart-content h1 {
+
+font-family: var(--serif);
+
+font-size: 42px;
+
+font-weight: 600;
+
+letter-spacing: 1px;
+
+color: white;
+
+text-shadow:
+
+0 0 5px white,
+
+0 0 15px var(--light-purple),
+
+0 0 30px var(--purple);
+}
+
+
+.heart-small-text {
+
+font-family: var(--sans);
+
+font-size: 8px;
+
+letter-spacing: 3px;
+
+text-transform: uppercase;
+
+color: rgba(255,255,255,.7);
+}
+
+
+.heart-entrance:hover {
+
+transform:
+rotate(-45deg)
+scale(1.08);
+}
+
+
+.heart-entrance:hover::before,
+.heart-entrance:hover::after {
+
+box-shadow:
+
+inset
+0 0 30px
+rgba(255,255,255,.12),
+
+0 0 15px
+rgba(190,150,255,.9),
+
+0 0 45px
+rgba(155,108,255,.75),
+
+0 0 100px
+rgba(155,108,255,.4);
+}
+
+
+.heart-entrance {
+
+animation:
+heartPulse
+2.4s
+ease-in-out
+infinite;
+}
+
+
+@keyframes heartPulse {
+
+0%, 100% {
+filter:
+drop-shadow(
+0 0 5px rgba(155,108,255,.3)
+);
+}
+
+50% {
+filter:
+drop-shadow(
+0 0 20px rgba(155,108,255,.7)
+);
+}
+}
+
+
+/* ============================================================
+10. TAP TEXT
+============================================================ */
+
+.tap-text {
+
+margin-top: 35px;
+
+font-size: 11px;
+
+letter-spacing: 5px;
+
+text-transform: uppercase;
+
+color: rgba(216,194,255,.7);
+
+animation:
+tapPulse
+2s
+ease-in-out
+infinite;
+
+z-index: 5;
+}
+
+
+@keyframes tapPulse {
+
+0%, 100% {
+opacity: .4;
+}
+
+50% {
+opacity: 1;
+}
+}
+
+
+/* ============================================================
+11. ENTRANCE DIVIDER
+============================================================ */
+
+.entrance-divider {
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+margin-top: 20px;
+
+opacity: .5;
+}
+
+
+.entrance-divider span {
+
+width: 50px;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--purple)
+);
+
+box-shadow:
+0 0 8px var(--purple);
+}
+
+
+.entrance-divider span:last-child {
+
+background:
+linear-gradient(
+90deg,
+var(--purple),
+transparent
+);
+}
+
+
+.entrance-divider i {
+
+color: var(--light-purple);
+
+font-style: normal;
+
+text-shadow:
+0 0 10px var(--purple);
+}
+
+
+/* ============================================================
+12. MAIN CONTENT
+============================================================ */
+
+.main-content {
+
+position: relative;
+
+z-index: 2;
+
+opacity: 0;
+
+transition:
+opacity 1.5s ease;
+}
+
+
+.main-content.visible {
+
+opacity: 1;
+}
+
+
+/* ============================================================
+13. INTRO SECTION
+============================================================ */
+
+.intro-section {
+
+min-height: 100vh;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+text-align: center;
+
+padding: 100px 25px;
+
+position: relative;
+}
+
+
+.intro-content {
+
+max-width: 900px;
+
+width: 100%;
+
+animation:
+introAppear
+1.5s
+ease
+both;
+}
+
+
+@keyframes introAppear {
+
+from {
+
+opacity: 0;
+
+transform:
+translateY(40px);
+
+}
+
+to {
+
+opacity: 1;
+
+transform:
+translateY(0);
+
+}
+}
+
+
+/* ============================================================
+14. EYEBROW
+============================================================ */
+
+.eyebrow {
+
+font-family: var(--sans);
+
+text-transform: uppercase;
+
+letter-spacing: 5px;
+
+font-size: 11px;
+
+color: #e8d9ff;
+
+margin-bottom: 20px;
+
+text-shadow:
+0 0 12px rgba(255,255,255,.7);
+
+}
+
+
+/* ============================================================
+15. MAIN TITLE
+============================================================ */
+
+.main-title {
+
+font-family: var(--serif);
+
+font-size:
+clamp(
+55px,
+8vw,
+110px
+);
+
+line-height: .95;
+
+font-weight: 500;
+
+letter-spacing: -2px;
+
+color: #ffffff;
+
+text-shadow:
+0 0 15px rgba(255,255,255,.08);
+}
+
+
+.main-title span {
+
+color: #c9a7ff;
+
+text-shadow:
+
+0 0 5px var(--light-purple),
+
+0 0 15px var(--purple),
+
+0 0 40px rgba(155,108,255,.6);
+}
+
+
+/* ============================================================
+16. INTRO DESCRIPTION
+============================================================ */
+
+.intro-description {
+
+max-width: 580px;
+
+margin:
+35px
+auto
+0;
+
+font-family: var(--serif);
+
+font-size: 20px;
+
+line-height: 1.7;
+
+color: #eee6ff;
+}
+
+
+/* ============================================================
+17. INTRO LINES
+============================================================ */
+
+.intro-lines {
+
+margin:
+65px
+auto
+0;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 18px;
+
+width: min(600px, 90%);
+}
+
+
+.intro-line {
+
+flex: 1;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--purple)
+);
+
+box-shadow:
+0 0 8px var(--purple);
+
+opacity: .6;
+}
+
+
+.intro-line.right {
+
+background:
+linear-gradient(
+90deg,
+var(--purple),
+transparent
+);
+}
+
+
+.read-on {
+
+color: #d8c2ff;
+
+font-size: 10px;
+
+letter-spacing: 4px;
+
+text-transform: uppercase;
+
+cursor: pointer;
+
+transition:
+transform .3s ease,
+text-shadow .3s ease;
+}
+
+
+.read-on:hover {
+
+transform: translateY(4px);
+
+text-shadow:
+0 0 10px var(--light-purple),
+0 0 25px var(--purple);
+}
+
+
+/* ============================================================
+18. SCROLL INDICATOR
+============================================================ */
+
+.scroll-indicator {
+
+margin-top: 35px;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+gap: 5px;
+}
+
+
+.scroll-indicator span {
+
+width: 8px;
+height: 8px;
+
+border-right: 1px solid var(--lavender);
+border-bottom: 1px solid var(--lavender);
+
+transform:
+rotate(45deg);
+
+animation:
+arrowDown
+1.8s
+ease-in-out
+infinite;
+}
+
+
+.scroll-indicator span:nth-child(2) {
+
+animation-delay: .2s;
+
+opacity: .5;
+}
+
+
+@keyframes arrowDown {
+
+0%, 100% {
+opacity: .2;
+transform:
+rotate(45deg)
+translate(-2px,-2px);
+}
+
+50% {
+opacity: 1;
+transform:
+rotate(45deg)
+translate(3px,3px);
+}
+}
+
+
+/* ============================================================
+19. CONFESSION SECTION
+============================================================ */
+
+.confession-section {
+
+position: relative;
+
+min-height: 100vh;
+
+padding:
+150px
+25px
+120px;
+
+overflow: hidden;
+}
+
+
+.background-title {
+
+position: absolute;
+
+top: 100px;
+
+left: 50%;
+
+transform:
+translateX(-50%);
+
+white-space: nowrap;
+
+font-family: var(--serif);
+
+font-size:
+clamp(
+100px,
+20vw,
+300px
+);
+
+color: rgba(255,255,255,.025);
+
+pointer-events: none;
+
+user-select: none;
+
+z-index: 0;
+}
+
+
+.confession-content {
+
+position: relative;
+
+z-index: 2;
+
+max-width: 900px;
+
+margin: auto;
+
+text-align: center;
+}
+
+
+/* ============================================================
+20. SECTION LABEL
+============================================================ */
+
+.section-label {
+
+font-size: 10px;
+
+text-transform: uppercase;
+
+letter-spacing: 6px;
+
+color: rgba(216,194,255,.45);
+
+margin-bottom: 30px;
+}
+
+
+/* ============================================================
+21. CONFESSION HEADING
+============================================================ */
+
+.confession-heading {
+
+font-family: var(--serif);
+
+font-size:
+clamp(
+38px,
+5vw,
+65px
+);
+
+font-weight: 500;
+
+line-height: 1.12;
+
+color: #ffffff;
+
+max-width: 800px;
+
+margin: auto;
+
+text-shadow:
+0 0 20px rgba(155,108,255,.08);
+}
+
+
+.confession-heading span,
+.letter-paragraph span,
+.secret-text span {
+color: #d8c2ff;
+text-shadow:
+0 0 5px var(--light-purple),
+0 0 15px var(--purple),
+0 0 30px rgba(155,108,255,.5);
+}
+
+
+/* ============================================================
+22. HEART DIVIDER
+============================================================ */
+
+.heart-divider {
+
+display: flex;
+
+align-items: center;
+
+gap: 20px;
+
+width: min(600px, 90%);
+
+margin:
+60px
+auto
+70px;
+}
+
+
+.divider-line {
+
+flex: 1;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(155,108,255,.7)
+);
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.6);
+}
+
+
+.divider-line:last-child {
+
+background:
+linear-gradient(
+90deg,
+rgba(155,108,255,.7),
+transparent
+);
+}
+
+
+.divider-heart {
+
+color: var(--light-purple);
+
+font-size: 18px;
+
+text-shadow:
+0 0 8px var(--purple),
+0 0 20px var(--purple);
+
+animation:
+dividerBeat
+2s
+ease-in-out
+infinite;
+}
+
+
+@keyframes dividerBeat {
+
+0%, 100% {
+transform: scale(1);
+}
+
+50% {
+transform: scale(1.25);
+}
+}
+
+
+/* ============================================================
+23. LETTER
+============================================================ */
+
+.letter {
+
+max-width: 720px;
+
+margin: auto;
+
+text-align: left;
+}
+
+
+.letter-paragraph {
+
+font-family: var(--serif);
+
+font-size: 21px;
+
+line-height: 1.9;
+
+letter-spacing: .15px;
+
+color: rgba(245, 240, 255, 0.92);
+
+margin-bottom: 38px;
+
+transition:
+opacity 1s ease,
+transform 1s ease;
+}
+
+
+/* ============================================================
+24. SCROLL REVEAL
+============================================================ */
+
+.hidden-before-reveal {
+
+opacity: 0;
+
+transform:
+translateY(35px);
+}
+
+
+.revealed {
+
+opacity: 1;
+
+transform:
+translateY(0);
+}
+
+
+/* ============================================================
+25. HIDDEN MESSAGE
+============================================================ */
+
+.hidden-message {
+
+margin:
+70px
+0;
+
+text-align: center;
+}
+
+
+.reveal-button {
+
+background: transparent;
+
+border:
+1px solid
+rgba(199,166,255,.35);
+
+color: #e6d8ff;
+
+padding:
+14px
+25px;
+
+border-radius: 50px;
+
+font-family: var(--sans);
+
+font-size: 10px;
+
+letter-spacing: 2px;
+
+text-transform: uppercase;
+
+cursor: pointer;
+
+transition:
+all .4s ease;
+
+box-shadow:
+0 0 15px
+rgba(155,108,255,.08);
+}
+
+
+.reveal-button:hover {
+
+border-color:
+var(--light-purple);
+
+box-shadow:
+0 0 15px
+rgba(155,108,255,.4),
+
+0 0 35px
+rgba(155,108,255,.15);
+
+transform:
+translateY(-3px);
+}
+
+
+.secret-text {
+
+max-height: 0;
+
+overflow: hidden;
+
+opacity: 0;
+
+transform:
+translateY(-10px);
+
+transition:
+max-height 1s ease,
+opacity .8s ease,
+transform .8s ease;
+}
+
+
+.secret-text.show-secret {
+
+max-height: 300px;
+
+opacity: 1;
+
+transform:
+translateY(0);
+
+margin-top: 30px;
+}
+
+
+.secret-text p {
+
+font-family: var(--serif);
+
+font-size: 20px;
+
+line-height: 1.8;
+
+color: #e6d8ff;
+
+font-style: italic;
+
+text-shadow:
+0 0 12px
+rgba(199,166,255,.25);
+}
+
+
+/* ============================================================
+26. FINAL DIVIDER
+============================================================ */
+
+.final-divider {
+
+display: flex;
+
+align-items: center;
+
+gap: 25px;
+
+margin:
+120px
+0
+100px;
+}
+
+
+.final-divider span {
+
+height: 1px;
+
+flex: 1;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(155,108,255,.6)
+);
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.5);
+}
+
+
+.final-divider span:last-child {
+
+background:
+linear-gradient(
+90deg,
+rgba(155,108,255,.6),
+transparent
+);
+}
+
+
+.divider-symbol {
+
+font-size: 13px;
+
+letter-spacing: 8px;
+
+color: #d8b8ff;
+
+text-shadow:
+0 0 10px var(--purple);
+}
+
+
+/* ============================================================
+27. FINAL SECTION
+============================================================ */
+
+.final-section {
+
+min-height: 60vh;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+justify-content: center;
+
+text-align: center;
+}
+
+
+.final-message {
+
+font-family: var(--serif);
+
+font-size:
+clamp(
+28px,
+4vw,
+48px
+);
+
+font-style: italic;
+
+color: rgba(248,244,255,.85);
+
+text-shadow:
+0 0 15px
+rgba(155,108,255,.2);
+
+max-width: 650px;
+}
+
+
+/* ============================================================
+28. FINAL ROSE
+============================================================ */
+
+.final-rose {
+
+font-size: 65px;
+
+margin-top: 50px;
+
+cursor: pointer;
+
+display: inline-block;
+
+filter:
+drop-shadow(
+0 0 8px rgba(230,130,180,.5)
+)
+drop-shadow(
+0 0 20px rgba(155,108,255,.35)
+);
+
+animation:
+roseHeartbeat
+1.8s
+ease-in-out
+infinite;
+
+transition:
+filter .4s ease;
+}
+
+
+@keyframes roseHeartbeat {
+
+0%, 100% {
+
+transform:
+scale(1)
+rotate(-2deg);
+
+}
+
+14% {
+
+transform:
+scale(1.08)
+rotate(2deg);
+
+}
+
+28% {
+
+transform:
+scale(1)
+rotate(-2deg);
+
+}
+
+42% {
+
+transform:
+scale(1.05)
+rotate(1deg);
+
+}
+
+70% {
+
+transform:
+scale(1)
+rotate(0deg);
+
+}
+}
+
+
+.final-rose:hover {
+
+filter:
+drop-shadow(
+0 0 12px rgba(240,150,200,.8)
+)
+drop-shadow(
+0 0 35px rgba(155,108,255,.7)
+);
+}
+
+
+.final-rose.rose-clicked {
+
+animation:
+roseBurst
+.7s
+ease;
+}
+
+
+@keyframes roseBurst {
+
+0% {
+transform: scale(1);
+}
+
+40% {
+transform: scale(1.5);
+}
+
+100% {
+transform: scale(1);
+}
+}
+
+
+/* ============================================================
+29. SIGNATURE
+============================================================ */
+
+.signature {
+
+margin-top: 25px;
+
+font-family: var(--serif);
+
+font-size: 25px;
+
+font-style: italic;
+
+color: #e1ccff;
+
+text-shadow:
+0 0 10px
+rgba(199,166,255,.4);
+}
+
+
+/* ============================================================
+30. CLICK HEART EFFECT
+============================================================ */
+
+.click-heart {
+
+position: fixed;
+
+z-index: 999;
+
+pointer-events: none;
+
+color: var(--light-purple);
+
+font-size: 20px;
+
+text-shadow:
+0 0 8px var(--purple),
+0 0 20px var(--purple);
+
+transform:
+translate(-50%, -50%);
+
+animation:
+clickHeartAnimation
+1.2s
+ease-out
+forwards;
+}
+
+
+@keyframes clickHeartAnimation {
+
+0% {
+
+opacity: 1;
+
+transform:
+translate(-50%, -50%)
+scale(.5);
+}
+
+50% {
+
+opacity: 1;
+
+transform:
+translate(-50%, -100px)
+scale(1.2);
+}
+
+100% {
+
+opacity: 0;
+
+transform:
+translate(-50%, -160px)
+scale(.5);
+}
+}
+
+
+/* ============================================================
+31. ROSE HEART BURST
+============================================================ */
+
+.rose-heart {
+
+position: fixed;
+
+z-index: 999;
+
+pointer-events: none;
+
+color: var(--rose-light);
+
+font-size: 16px;
+
+text-shadow:
+0 0 10px var(--rose);
+
+animation:
+roseHeartBurst
+1.2s
+ease-out
+forwards;
+}
+
+
+@keyframes roseHeartBurst {
+
+0% {
+
+transform:
+translate(-50%, -50%)
+scale(.3);
+
+opacity: 0;
+}
+
+20% {
+
+opacity: 1;
+
+transform:
+translate(-50%, -50%)
+scale(1);
+}
+
+100% {
+
+transform:
+translate(
+calc(-50% + var(--x)),
+calc(-50% + var(--y))
+)
+scale(.2);
+
+opacity: 0;
+}
+}
+
+
+/* ============================================================
+32. AMBIENT GLOW
+============================================================ */
+
+.ambient-glow {
+
+position: fixed;
+
+width: 100px;
+height: 100px;
+
+border-radius: 50%;
+
+pointer-events: none;
+
+background:
+radial-gradient(
+circle,
+rgba(155,108,255,.15),
+transparent 70%
+);
+
+filter: blur(15px);
+
+transform:
+translate(-50%, -50%)
+scale(.3);
+
+animation:
+ambientGlow
+4s
+ease-out
+forwards;
+}
+
+
+@keyframes ambientGlow {
+
+0% {
+
+opacity: 0;
+
+transform:
+translate(-50%, -50%)
+scale(.3);
+}
+
+40% {
+opacity: 1;
+}
+
+100% {
+
+opacity: 0;
+
+transform:
+translate(-50%, -50%)
+scale(2.5);
+}
+}
+
+
+/* ============================================================
+33. FOOTER
+============================================================ */
+
+.site-footer {
+
+padding:
+70px
+25px
+40px;
+
+text-align: center;
+
+color:
+rgba(216,194,255,.35);
+
+font-size: 9px;
+
+letter-spacing: 1px;
+}
+
+
+.site-footer span {
+
+display: block;
+
+margin-top: 15px;
+
+color:
+rgba(199,166,255,.5);
+
+text-shadow:
+0 0 10px var(--purple);
+}
+
+
+/* ============================================================
+34. MOBILE RESPONSIVENESS
+============================================================ */
+
+@media (max-width: 700px) {
+
+.entrance-rose {
+top: 10%;
+font-size: 40px;
+}
+
+
+.heart-entrance {
+
+width: 180px;
+height: 165px;
+
+}
+
+
+.heart-entrance::before,
+.heart-entrance::after {
+
+width: 120px;
+height: 120px;
+
+}
+
+
+.heart-entrance::before {
+
+left: 30px;
+
+}
+
+
+.heart-entrance::after {
+
+top: 30px;
+
+}
+
+
+.heart-content h1 {
+
+font-size: 34px;
+
+}
+
+
+.intro-section {
+
+padding:
+80px
+20px;
+
+}
+
+
+.eyebrow {
+
+font-size: 9px;
+
+letter-spacing: 3px;
+
+}
+
+
+.intro-description {
+
+font-size: 18px;
+
+line-height: 1.65;
+
+}
+
+
+.intro-lines {
+
+margin-top: 45px;
+
+}
+
+
+.confession-section {
+
+padding:
+100px
+20px
+80px;
+
+}
+
+
+.background-title {
+
+top: 70px;
+
+font-size: 90px;
+
+}
+
+
+.confession-heading {
+
+font-size: 36px;
+
+}
+
+
+.letter-paragraph {
+
+font-size: 19px;
+
+line-height: 1.8;
+
+}
+
+
+.heart-divider {
+
+margin:
+45px
+auto
+55px;
+
+}
+
+
+.final-divider {
+
+margin:
+80px
+0
+70px;
+
+}
+
+
+.final-message {
+
+font-size: 30px;
+
+}
+
+
+.final-rose {
+
+font-size: 55px;
+
+}
+
+}
+
+
+/* ============================================================
+35. VERY SMALL PHONES
+============================================================ */
+
+@media (max-width: 400px) {
+
+.heart-entrance {
+
+transform:
+rotate(-45deg)
+scale(.85);
+
+}
+
+
+.heart-entrance:hover {
+
+transform:
+rotate(-45deg)
+scale(.92);
+
+}
+
+
+.main-title {
+
+font-size: 52px;
+
+}
+
+
+.confession-heading {
+
+font-size: 32px;
+
+}
+
+
+.letter-paragraph {
+
+font-size: 18px;
+
+}
+
+}
+
+
+/* ============================================================
+36. REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+*,
+*::before,
+*::after {
+
+animation-duration: .01ms !important;
+
+animation-iteration-count: 1 !important;
+
+scroll-behavior: auto !important;
+
+}
+
+}
+
+
+/* ============================================================
+37. MUSIC PLAYER
+============================================================ */
+
+.music-player {
+
+position: fixed;
+
+right: 24px;
+
+bottom: 24px;
+
+width: 285px;
+
+padding: 16px;
+
+border:
+1px solid
+rgba(199,166,255,.25);
+
+border-radius: 18px;
+
+background:
+linear-gradient(
+145deg,
+rgba(22,12,42,.94),
+rgba(8,12,30,.96)
+);
+
+backdrop-filter: blur(18px);
+
+-webkit-backdrop-filter: blur(18px);
+
+box-shadow:
+0 0 12px
+rgba(155,108,255,.15),
+
+0 0 35px
+rgba(155,108,255,.10),
+
+inset 0 1px
+rgba(255,255,255,.06);
+
+z-index: 500;
+
+overflow: hidden;
+
+transition:
+transform .4s ease,
+box-shadow .4s ease,
+border-color .4s ease;
+}
+
+
+.music-player::before {
+
+content: "";
+
+position: absolute;
+
+top: 0;
+
+left: 12%;
+
+width: 76%;
+
+height: 2px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+var(--light-purple),
+var(--purple),
+transparent
+);
+
+box-shadow:
+0 0 8px var(--purple),
+0 0 20px var(--purple);
+
+opacity: .7;
+
+}
+
+
+.music-player::after {
+
+content: "";
+
+position: absolute;
+
+width: 170px;
+
+height: 170px;
+
+right: -80px;
+
+bottom: -100px;
+
+border-radius: 50%;
+
+background:
+radial-gradient(
+circle,
+rgba(155,108,255,.22),
+transparent 70%
+);
+
+filter: blur(18px);
+
+pointer-events: none;
+}
+
+
+.music-player:hover {
+
+transform: translateY(-3px);
+
+border-color:
+rgba(199,166,255,.45);
+
+box-shadow:
+0 0 15px
+rgba(155,108,255,.25),
+
+0 0 45px
+rgba(155,108,255,.14),
+
+inset 0 1px
+rgba(255,255,255,.08);
+}
+
+
+/* ============================================================
+MUSIC WAVE
+============================================================ */
+
+.music-wave {
+
+height: 25px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 3px;
+
+margin:
+0
+0
+10px;
+
+padding:
+0
+10px;
+}
+
+
+.music-wave span {
+
+width: 3px;
+
+height: 4px;
+
+border-radius: 10px;
+
+background:
+linear-gradient(
+to top,
+var(--purple),
+var(--light-purple)
+);
+
+box-shadow:
+0 0 5px var(--purple),
+0 0 10px rgba(155,108,255,.5);
+
+opacity: .55;
+
+transform-origin: center;
+
+}
+
+
+.music-playing .music-wave span {
+
+animation:
+musicWave
+.8s
+ease-in-out
+infinite;
+}
+
+
+.music-wave span:nth-child(1) {
+animation-delay: -.7s;
+}
+
+.music-wave span:nth-child(2) {
+animation-delay: -.5s;
+}
+
+.music-wave span:nth-child(3) {
+animation-delay: -.3s;
+}
+
+.music-wave span:nth-child(4) {
+animation-delay: -.6s;
+}
+
+.music-wave span:nth-child(5) {
+animation-delay: -.2s;
+}
+
+.music-wave span:nth-child(6) {
+animation-delay: -.4s;
+}
+
+.music-wave span:nth-child(7) {
+animation-delay: -.1s;
+}
+
+.music-wave span:nth-child(8) {
+animation-delay: -.55s;
+}
+
+.music-wave span:nth-child(9) {
+animation-delay: -.25s;
+}
+
+.music-wave span:nth-child(10) {
+animation-delay: -.45s;
+}
+
+.music-wave span:nth-child(11) {
+animation-delay: -.15s;
+}
+
+.music-wave span:nth-child(12) {
+animation-delay: -.65s;
+}
+
+.music-wave span:nth-child(13) {
+animation-delay: -.35s;
+}
+
+.music-wave span:nth-child(14) {
+animation-delay: -.5s;
+}
+
+.music-wave span:nth-child(15) {
+animation-delay: -.2s;
+}
+
+.music-wave span:nth-child(16) {
+animation-delay: -.4s;
+}
+
+.music-wave span:nth-child(17) {
+animation-delay: -.1s;
+}
+
+.music-wave span:nth-child(18) {
+animation-delay: -.6s;
+}
+
+
+@keyframes musicWave {
+
+0%, 100% {
+
+height: 4px;
+
+opacity: .45;
+
+}
+
+50% {
+
+height: 22px;
+
+opacity: 1;
+
+}
+}
+
+
+/* ============================================================
+MUSIC PLAYER TOP
+============================================================ */
+
+.music-player-top {
+
+position: relative;
+
+display: flex;
+
+align-items: center;
+
+gap: 12px;
+
+z-index: 2;
+}
+
+
+/* ============================================================
+MUSIC DISC
+============================================================ */
+
+.music-disc {
+
+width: 48px;
+
+height: 48px;
+
+flex-shrink: 0;
+
+border-radius: 50%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background:
+radial-gradient(
+circle,
+#24133e 0 12%,
+#090b18 13% 25%,
+#26163e 26% 29%,
+#090b18 30% 45%,
+#211238 46% 55%,
+#080a16 56% 100%
+);
+
+border:
+1px solid
+rgba(199,166,255,.3);
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.25),
+
+0 0 18px
+rgba(155,108,255,.12);
+
+}
+
+
+.music-playing .music-disc {
+
+animation:
+discSpin
+5s
+linear
+infinite;
+}
+
+
+@keyframes discSpin {
+
+from {
+transform: rotate(0deg);
+}
+
+to {
+transform: rotate(360deg);
+}
+
+}
+
+
+.music-disc-center {
+
+width: 12px;
+
+height: 12px;
+
+border-radius: 50%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background:
+radial-gradient(
+circle,
+var(--light-purple),
+var(--purple)
+);
+
+color: white;
+
+font-size: 6px;
+
+box-shadow:
+0 0 8px
+var(--purple);
+}
+
+
+/* ============================================================
+MUSIC DETAILS
+============================================================ */
+
+.music-details {
+
+min-width: 0;
+
+flex: 1;
+
+text-align: left;
+}
+
+
+.music-label {
+
+display: block;
+
+font-size: 7px;
+
+letter-spacing: 2px;
+
+color:
+rgba(216,194,255,.5);
+
+margin-bottom: 3px;
+}
+
+
+.music-details h3 {
+
+font-family: var(--serif);
+
+font-size: 17px;
+
+font-weight: 600;
+
+line-height: 1.15;
+
+color: white;
+
+text-shadow:
+0 0 8px
+rgba(199,166,255,.2);
+
+overflow-wrap: anywhere;
+}
+
+
+.music-details p {
+
+font-size: 8px;
+
+letter-spacing: 1px;
+
+margin-top: 3px;
+
+color:
+rgba(216,194,255,.55);
+}
+
+
+/* ============================================================
+PLAY BUTTON
+============================================================ */
+
+.music-play-button {
+
+width: 38px;
+
+height: 38px;
+
+flex-shrink: 0;
+
+border-radius: 50%;
+
+border:
+1px solid
+rgba(199,166,255,.4);
+
+background:
+rgba(155,108,255,.12);
+
+color: #eadfff;
+
+font-size: 13px;
+
+cursor: pointer;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+padding-left: 2px;
+
+transition:
+all .3s ease;
+
+box-shadow:
+0 0 10px
+rgba(155,108,255,.1);
+}
+
+
+.music-play-button:hover {
+
+transform: scale(1.08);
+
+border-color:
+var(--light-purple);
+
+background:
+rgba(155,108,255,.25);
+
+box-shadow:
+0 0 12px
+rgba(155,108,255,.45),
+
+0 0 25px
+rgba(155,108,255,.18);
+}
+
+
+.music-playing .music-play-button {
+
+box-shadow:
+0 0 12px
+rgba(155,108,255,.45),
+
+0 0 25px
+rgba(155,108,255,.18);
+}
+
+
+/* ============================================================
+PROGRESS
+============================================================ */
+
+.music-progress-container {
+
+position: relative;
+
+z-index: 2;
+
+margin-top: 12px;
+}
+
+
+#progressBar {
+
+width: 100%;
+
+height: 3px;
+
+appearance: none;
+
+-webkit-appearance: none;
+
+background:
+rgba(216,194,255,.12);
+
+border-radius: 10px;
+
+outline: none;
+
+cursor: pointer;
+}
+
+
+#progressBar::-webkit-slider-thumb {
+
+appearance: none;
+
+-webkit-appearance: none;
+
+width: 8px;
+
+height: 8px;
+
+border-radius: 50%;
+
+background: var(--light-purple);
+
+box-shadow:
+0 0 6px var(--purple),
+0 0 12px var(--purple);
+
+}
+
+
+#progressBar::-moz-range-thumb {
+
+width: 8px;
+
+height: 8px;
+
+border: none;
+
+border-radius: 50%;
+
+background: var(--light-purple);
+
+box-shadow:
+0 0 6px var(--purple),
+0 0 12px var(--purple);
+
+}
+
+
+/* ============================================================
+TIME
+============================================================ */
+
+.music-time {
+
+display: flex;
+
+justify-content: space-between;
+
+margin-top: 5px;
+
+font-size: 7px;
+
+letter-spacing: .5px;
+
+color:
+rgba(216,194,255,.45);
+}
+
+
+/* ============================================================
+MUSIC ERROR
+============================================================ */
+
+.music-error {
+
+border-color:
+rgba(255,120,170,.35);
+
+}
+
+
+/* ============================================================
+MOBILE MUSIC PLAYER
+============================================================ */
+
+@media (max-width: 700px) {
+
+.music-player {
+
+right: 16px;
+
+bottom: 16px;
+
+width: 265px;
+
+padding: 14px;
+
+border-radius: 16px;
+
+}
+
+
+.music-wave {
+
+margin-bottom: 8px;
+
+}
+
+
+.music-details h3 {
+
+font-size: 16px;
+
+}
+
+}
+
+
+@media (max-width: 400px) {
+
+.music-player {
+
+right: 9px;
+
+bottom: 9px;
+
+width: calc(100% - 18px);
+
+max-width: 250px;
+
+padding: 12px;
+
+}
+
+
+.music-disc {
+
+width: 42px;
+
+height: 42px;
+
+}
+
+
+.music-play-button {
+
+width: 34px;
+
+height: 34px;
+
+}
+
+
+.music-details h3 {
+
+font-size: 15px;
+
+}
+
+}
+
+
+/* ============================================================
+MUSIC REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+.music-playing .music-disc,
+.music-playing .music-wave span {
+
+animation: none !important;
+
+}
+
+}
+
+
+/* ============================================================
+38. NEW MUSIC PLAYER REDESIGN
+DO NOT DELETE THE ORIGINAL MUSIC CSS ABOVE
+THIS SECTION OVERRIDES IT
+============================================================ */
+
+.music-player {
+
+position: fixed;
+
+right: 18px;
+
+bottom: 18px;
+
+width: 235px;
+
+padding: 11px;
+
+border:
+1px solid
+rgba(199,166,255,.28);
+
+border-radius: 17px;
+
+background:
+linear-gradient(
+135deg,
+rgba(10,8,27,.94),
+rgba(25,12,48,.91)
+);
+
+backdrop-filter: blur(18px);
+
+-webkit-backdrop-filter: blur(18px);
+
+box-shadow:
+0 0 10px
+rgba(139,92,246,.16),
+
+0 0 30px
+rgba(139,92,246,.10),
+
+inset 0 1px
+rgba(255,255,255,.07);
+
+overflow: hidden;
+
+z-index: 500;
+
+transition:
+transform .35s ease,
+box-shadow .35s ease,
+border-color .35s ease;
+}
+
+
+/* ============================================================
+MOVING LIGHT ACROSS THE TOP
+============================================================ */
+
+.music-player::before {
+
+content: "";
+
+position: absolute;
+
+top: 0;
+
+left: -100%;
+
+width: 70%;
+
+height: 2px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+#9d7aff,
+#e5d9ff,
+#9d7aff,
+transparent
+);
+
+box-shadow:
+0 0 8px #9d7aff,
+0 0 18px #9d7aff;
+
+opacity: .9;
+
+animation:
+musicLightSweep
+4s
+ease-in-out
+infinite;
+}
+
+
+@keyframes musicLightSweep {
+
+0% {
+
+left: -100%;
+
+}
+
+50% {
+
+left: 130%;
+
+}
+
+100% {
+
+left: 130%;
+
+}
+
+}
+
+
+/* ============================================================
+SOFT INNER LIGHT
+============================================================ */
+
+.music-player::after {
+
+content: "";
+
+position: absolute;
+
+width: 130px;
+
+height: 130px;
+
+right: -65px;
+
+bottom: -80px;
+
+border-radius: 50%;
+
+background:
+radial-gradient(
+circle,
+rgba(115,94,255,.20),
+transparent 70%
+);
+
+filter: blur(18px);
+
+pointer-events: none;
+}
+
+
+.music-player:hover {
+
+transform:
+translateY(-3px);
+
+border-color:
+rgba(210,190,255,.48);
+
+box-shadow:
+0 0 15px
+rgba(139,92,246,.25),
+
+0 0 38px
+rgba(139,92,246,.15),
+
+inset 0 1px
+rgba(255,255,255,.09);
+}
+
+
+/* ============================================================
+NEW WAVE VISUALIZER
+============================================================ */
+
+.music-wave {
+
+position: relative;
+
+width: 100%;
+
+height: 30px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 3px;
+
+margin-bottom: 8px;
+
+overflow: hidden;
+
+border-radius: 10px;
+
+opacity: .9;
+}
+
+
+.music-wave::before {
+
+content: "";
+
+position: absolute;
+
+left: 0;
+
+right: 0;
+
+top: 50%;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(170,145,255,.25),
+rgba(210,190,255,.55),
+rgba(170,145,255,.25),
+transparent
+);
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.4);
+}
+
+
+/* Individual wave bars */
+
+.music-wave span {
+
+position: relative;
+
+display: block;
+
+width: 2px;
+
+height: 8px;
+
+border-radius: 10px;
+
+background:
+linear-gradient(
+to top,
+#7455d9,
+#d8c7ff
+);
+
+box-shadow:
+0 0 5px
+rgba(155,108,255,.75),
+
+0 0 10px
+rgba(155,108,255,.35);
+
+transform-origin: center;
+
+opacity: .75;
+}
+
+
+/* Different wave heights */
+
+.music-wave span:nth-child(1) {
+height: 6px;
+}
+
+.music-wave span:nth-child(2) {
+height: 11px;
+}
+
+.music-wave span:nth-child(3) {
+height: 17px;
+}
+
+.music-wave span:nth-child(4) {
+height: 12px;
+}
+
+.music-wave span:nth-child(5) {
+height: 21px;
+}
+
+.music-wave span:nth-child(6) {
+height: 15px;
+}
+
+.music-wave span:nth-child(7) {
+height: 24px;
+}
+
+.music-wave span:nth-child(8) {
+height: 17px;
+}
+
+.music-wave span:nth-child(9) {
+height: 27px;
+}
+
+.music-wave span:nth-child(10) {
+height: 20px;
+}
+
+.music-wave span:nth-child(11) {
+height: 26px;
+}
+
+.music-wave span:nth-child(12) {
+height: 17px;
+}
+
+.music-wave span:nth-child(13) {
+height: 23px;
+}
+
+.music-wave span:nth-child(14) {
+height: 15px;
+}
+
+.music-wave span:nth-child(15) {
+height: 21px;
+}
+
+.music-wave span:nth-child(16) {
+height: 12px;
+}
+
+.music-wave span:nth-child(17) {
+height: 17px;
+}
+
+.music-wave span:nth-child(18) {
+height: 8px;
+}
+
+
+/* ============================================================
+WAVE ANIMATION
+============================================================ */
+
+.music-playing .music-wave span {
+
+animation:
+musicWavePulse
+1s
+ease-in-out
+infinite alternate;
+}
+
+
+.music-wave span:nth-child(1) {
+animation-delay: -.1s;
+}
+
+.music-wave span:nth-child(2) {
+animation-delay: -.25s;
+}
+
+.music-wave span:nth-child(3) {
+animation-delay: -.4s;
+}
+
+.music-wave span:nth-child(4) {
+animation-delay: -.55s;
+}
+
+.music-wave span:nth-child(5) {
+animation-delay: -.7s;
+}
+
+.music-wave span:nth-child(6) {
+animation-delay: -.85s;
+}
+
+.music-wave span:nth-child(7) {
+animation-delay: -1s;
+}
+
+.music-wave span:nth-child(8) {
+animation-delay: -.75s;
+}
+
+.music-wave span:nth-child(9) {
+animation-delay: -.5s;
+}
+
+.music-wave span:nth-child(10) {
+animation-delay: -.25s;
+}
+
+.music-wave span:nth-child(11) {
+animation-delay: -.1s;
+}
+
+.music-wave span:nth-child(12) {
+animation-delay: -.3s;
+}
+
+.music-wave span:nth-child(13) {
+animation-delay: -.5s;
+}
+
+.music-wave span:nth-child(14) {
+animation-delay: -.7s;
+}
+
+.music-wave span:nth-child(15) {
+animation-delay: -.9s;
+}
+
+.music-wave span:nth-child(16) {
+animation-delay: -.6s;
+}
+
+.music-wave span:nth-child(17) {
+animation-delay: -.35s;
+}
+
+.music-wave span:nth-child(18) {
+animation-delay: -.15s;
+}
+
+
+@keyframes musicWavePulse {
+
+0% {
+
+transform:
+scaleY(.35);
+
+opacity: .45;
+
+}
+
+100% {
+
+transform:
+scaleY(1.35);
+
+opacity: 1;
+
+}
+
+}
+
+
+/* ============================================================
+PLAYER TOP
+============================================================ */
+
+.music-player-top {
+
+display: flex;
+
+align-items: center;
+
+gap: 9px;
+
+position: relative;
+
+z-index: 2;
+}
+
+
+/* ============================================================
+SMALLER DISC
+============================================================ */
+
+.music-disc {
+
+width: 39px;
+
+height: 39px;
+
+flex-shrink: 0;
+
+border-radius: 50%;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background:
+radial-gradient(
+circle,
+#312052 0 10%,
+#080914 11% 25%,
+#30204c 26% 29%,
+#080914 30% 43%,
+#25183e 44% 53%,
+#060711 54% 100%
+);
+
+border:
+1px solid
+rgba(199,166,255,.35);
+
+box-shadow:
+0 0 7px
+rgba(155,108,255,.3),
+
+0 0 15px
+rgba(155,108,255,.13);
+}
+
+
+.music-playing .music-disc {
+
+animation:
+discSpinNew
+5s
+linear
+infinite;
+}
+
+
+@keyframes discSpinNew {
+
+from {
+transform: rotate(0deg);
+}
+
+to {
+transform: rotate(360deg);
+}
+
+}
+
+
+.music-disc-center {
+
+width: 9px;
+
+height: 9px;
+
+font-size: 5px;
+
+background:
+radial-gradient(
+circle,
+#e0d2ff,
+#8c63e8
+);
+
+box-shadow:
+0 0 7px
+#9b6cff;
+}
+
+
+/* ============================================================
+TRACK INFORMATION
+============================================================ */
+
+.music-details {
+
+min-width: 0;
+
+flex: 1;
+
+text-align: left;
+}
+
+
+.music-label {
+
+font-size: 6px;
+
+letter-spacing: 1.6px;
+
+color:
+rgba(216,194,255,.48);
+
+margin-bottom: 2px;
+}
+
+
+.music-details h3 {
+
+font-family: var(--serif);
+
+font-size: 14px;
+
+font-weight: 600;
+
+line-height: 1.15;
+
+color: #fff;
+
+white-space: nowrap;
+
+overflow: hidden;
+
+text-overflow: ellipsis;
+
+text-shadow:
+0 0 8px
+rgba(199,166,255,.25);
+}
+
+
+.music-details p {
+
+font-size: 7px;
+
+letter-spacing: .8px;
+
+margin-top: 2px;
+
+color:
+rgba(216,194,255,.52);
+}
+
+
+/* ============================================================
+PLAY BUTTON
+============================================================ */
+
+.music-play-button {
+
+width: 31px;
+
+height: 31px;
+
+flex-shrink: 0;
+
+border-radius: 50%;
+
+border:
+1px solid
+rgba(205,185,255,.4);
+
+background:
+linear-gradient(
+145deg,
+rgba(155,108,255,.23),
+rgba(90,60,160,.12)
+);
+
+color: #eee7ff;
+
+font-size: 10px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+padding-left: 2px;
+
+cursor: pointer;
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.18);
+
+transition:
+transform .25s ease,
+background .25s ease,
+box-shadow .25s ease;
+}
+
+
+.music-play-button:hover {
+
+transform:
+scale(1.1);
+
+background:
+rgba(155,108,255,.32);
+
+box-shadow:
+0 0 10px
+rgba(155,108,255,.5),
+
+0 0 20px
+rgba(155,108,255,.2);
+}
+
+
+.music-playing .music-play-button {
+
+box-shadow:
+0 0 10px
+rgba(155,108,255,.5),
+
+0 0 20px
+rgba(155,108,255,.2);
+}
+
+
+/* ============================================================
+PROGRESS AREA
+============================================================ */
+
+.music-progress-container {
+
+position: relative;
+
+z-index: 2;
+
+margin-top: 9px;
+}
+
+
+#progressBar {
+
+width: 100%;
+
+height: 3px;
+
+appearance: none;
+
+-webkit-appearance: none;
+
+border: none;
+
+outline: none;
+
+border-radius: 10px;
+
+cursor: pointer;
+
+background:
+rgba(216,194,255,.10);
+
+box-shadow:
+inset 0 0 4px
+rgba(0,0,0,.45);
+}
+
+
+/* WebKit */
+
+#progressBar::-webkit-slider-runnable-track {
+
+height: 3px;
+
+border-radius: 10px;
+
+background:
+linear-gradient(
+90deg,
+#8060e8,
+#cdb7ff,
+rgba(216,194,255,.10)
+);
+}
+
+
+#progressBar::-webkit-slider-thumb {
+
+appearance: none;
+
+-webkit-appearance: none;
+
+width: 7px;
+
+height: 7px;
+
+margin-top: -2px;
+
+border: none;
+
+border-radius: 50%;
+
+background: #eee6ff;
+
+box-shadow:
+0 0 5px #9b6cff,
+0 0 11px #9b6cff;
+}
+
+
+/* Firefox */
+
+#progressBar::-moz-range-track {
+
+height: 3px;
+
+border-radius: 10px;
+
+background:
+linear-gradient(
+90deg,
+#8060e8,
+#cdb7ff,
+rgba(216,194,255,.10)
+);
+}
+
+
+#progressBar::-moz-range-thumb {
+
+width: 7px;
+
+height: 7px;
+
+border: none;
+
+border-radius: 50%;
+
+background: #eee6ff;
+
+box-shadow:
+0 0 5px #9b6cff,
+0 0 11px #9b6cff;
+}
+
+
+/* ============================================================
+TIME
+============================================================ */
+
+.music-time {
+
+display: flex;
+
+justify-content: space-between;
+
+margin-top: 4px;
+
+font-size: 6px;
+
+letter-spacing: .4px;
+
+color:
+rgba(216,194,255,.42);
+}
+
+
+/* ============================================================
+MOBILE — MUCH SMALLER
+============================================================ */
+
+@media (max-width: 700px) {
+
+.music-player {
+
+right: 10px;
+
+bottom: 10px;
+
+width: 205px;
+
+padding: 9px;
+
+border-radius: 15px;
+}
+
+
+.music-wave {
+
+height: 25px;
+
+margin-bottom: 6px;
+
+gap: 2.5px;
+}
+
+
+.music-disc {
+
+width: 34px;
+
+height: 34px;
+}
+
+
+.music-disc-center {
+
+width: 8px;
+
+height: 8px;
+
+font-size: 4px;
+}
+
+
+.music-player-top {
+
+gap: 7px;
+}
+
+
+.music-label {
+
+font-size: 5px;
+
+letter-spacing: 1.3px;
+}
+
+
+.music-details h3 {
+
+font-size: 12px;
+}
+
+
+.music-details p {
+
+font-size: 6px;
+}
+
+
+.music-play-button {
+
+width: 27px;
+
+height: 27px;
+
+font-size: 9px;
+}
+
+
+.music-progress-container {
+
+margin-top: 7px;
+}
+
+}
+
+
+/* ============================================================
+VERY SMALL PHONES
+============================================================ */
+
+@media (max-width: 400px) {
+
+.music-player {
+
+right: 8px;
+
+bottom: 8px;
+
+width: 185px;
+
+padding: 8px;
+
+border-radius: 14px;
+}
+
+
+.music-wave {
+
+height: 22px;
+
+margin-bottom: 5px;
+
+gap: 2px;
+}
+
+
+.music-disc {
+
+width: 31px;
+
+height: 31px;
+}
+
+
+.music-details h3 {
+
+font-size: 11px;
+}
+
+
+.music-details p {
+
+font-size: 5.5px;
+}
+
+
+.music-play-button {
+
+width: 25px;
+
+height: 25px;
+
+font-size: 8px;
+}
+
+
+.music-time {
+
+font-size: 5.5px;
+
+}
+
+}
+
+
+/* ============================================================
+REDUCED MOTION
+============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+.music-player::before,
+.music-playing .music-disc,
+.music-playing .music-wave span {
+
+animation: none !important;
+
+}
+
+}
+
+
+/* ============================================================
+39. EXTRA WAVE DEPTH
+ADDED — DOES NOT REQUIRE HTML CHANGES
+============================================================ */
+
+/*
+The existing HTML has 18 wave bars.
+These rules make the existing bars feel denser,
+brighter and more energetic without replacing them.
+*/
+
+
+.music-wave {
+
+isolation: isolate;
+
+}
+
+
+.music-wave span {
+
+z-index: 2;
+
+min-height: 3px;
+
+}
+
+
+/* Extra glow behind the wave */
+
+.music-wave::after {
+
+content: "";
+
+position: absolute;
+
+inset: 0;
+
+z-index: 1;
+
+pointer-events: none;
+
+background:
+linear-gradient(
+90deg,
+transparent 0%,
+rgba(155,108,255,.08) 8%,
+transparent 16%,
+rgba(199,166,255,.10) 25%,
+transparent 34%,
+rgba(155,108,255,.08) 45%,
+transparent 55%,
+rgba(199,166,255,.10) 66%,
+transparent 76%,
+rgba(155,108,255,.08) 88%,
+transparent 100%
+);
+
+opacity: .8;
+
+animation:
+waveGlowSweep
+3s
+linear
+infinite;
+}
+
+
+@keyframes waveGlowSweep {
+
+0% {
+
+transform:
+translateX(-15%);
+
+opacity: .35;
+
+}
+
+50% {
+
+transform:
+translateX(0%);
+
+opacity: .8;
+
+}
+
+100% {
+
+transform:
+translateX(15%);
+
+opacity: .35;
+
+}
+
+}
+
+
+/* Make the center waves stronger */
+
+.music-wave span:nth-child(5),
+.music-wave span:nth-child(7),
+.music-wave span:nth-child(9),
+.music-wave span:nth-child(11),
+.music-wave span:nth-child(13),
+.music-wave span:nth-child(15) {
+
+width: 3px;
+
+box-shadow:
+0 0 6px rgba(155,108,255,.9),
+0 0 14px rgba(155,108,255,.55),
+0 0 22px rgba(199,166,255,.25);
+
+}
+
+
+/* Outer waves stay smaller */
+
+.music-wave span:nth-child(1),
+.music-wave span:nth-child(2),
+.music-wave span:nth-child(17),
+.music-wave span:nth-child(18) {
+
+opacity: .55;
+
+}
+
+
+/* Middle waves become brighter while playing */
+
+.music-playing .music-wave span:nth-child(3),
+.music-playing .music-wave span:nth-child(5),
+.music-playing .music-wave span:nth-child(7),
+.music-playing .music-wave span:nth-child(9),
+.music-playing .music-wave span:nth-child(11),
+.music-playing .music-wave span:nth-child(13),
+.music-playing .music-wave span:nth-child(15),
+.music-playing .music-wave span:nth-child(17) {
+
+animation-duration: .72s;
+
+}
+
+
+/* Different movement speeds */
+
+.music-playing .music-wave span:nth-child(2),
+.music-playing .music-wave span:nth-child(6),
+.music-playing .music-wave span:nth-child(10),
+.music-playing .music-wave span:nth-child(14),
+.music-playing .music-wave span:nth-child(18) {
+
+animation-duration: 1.15s;
+
+}
+
+
+/* ============================================================
+40. EXTRA WAVE PULSE
+============================================================ */
+
+.music-playing .music-wave {
+
+animation:
+waveContainerPulse
+2s
+ease-in-out
+infinite;
+}
+
+
+@keyframes waveContainerPulse {
+
+0%, 100% {
+
+filter:
+drop-shadow(
+0 0 2px rgba(155,108,255,.15)
+);
+
+}
+
+50% {
+
+filter:
+drop-shadow(
+0 0 8px rgba(155,108,255,.3)
+);
+
+}
+
+}
+
+
+/* ============================================================
+41. EXTRA WAVE EFFECT ON PLAYER
+============================================================ */
+
+.music-player.music-playing {
+
+box-shadow:
+0 0 12px
+rgba(139,92,246,.22),
+
+0 0 35px
+rgba(139,92,246,.13),
+
+0 0 65px
+rgba(139,92,246,.06),
+
+inset 0 1px
+rgba(255,255,255,.08);
+}
+
+
+.music-player.music-playing::after {
+
+animation:
+playerAmbientPulse
+2.5s
+ease-in-out
+infinite;
+}
+
+
+@keyframes playerAmbientPulse {
+
+0%, 100% {
+
+opacity: .45;
+
+transform:
+scale(.9);
+
+}
+
+50% {
+
+opacity: .9;
+
+transform:
+scale(1.12);
+
+}
+
+}
+
+
+/* ============================================================
+42. FINAL WAVE MOBILE ADJUSTMENT
+============================================================ */
+
+@media (max-width: 700px) {
+
+.music-wave span {
+
+width: 2px;
+
+}
+
+
+.music-wave span:nth-child(5),
+.music-wave span:nth-child(7),
+.music-wave span:nth-child(9),
+.music-wave span:nth-child(11),
+.music-wave span:nth-child(13),
+.music-wave span:nth-child(15) {
+
+width: 2.5px;
+
+}
+
+
+.music-wave::after {
+
+opacity: .55;
+
+}
+
+}
+
+
+@media (max-width: 400px) {
+
+.music-wave span {
+
+width: 2px;
+
+}
+
+
+.music-wave {
+
+gap: 1.8px;
+
+}
+
+}
+
+
+/* ============================================================
+END OF STYLESHEET
+============================================================ */
