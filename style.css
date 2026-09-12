@@ -1098,7 +1098,6 @@ transform:
 translateY(0);
 
 }
-
 }
 
 
@@ -2398,7 +2397,8 @@ scroll-behavior: auto !important;
 
 
 /* ============================================================
-37. COMPLETELY REDESIGNED MUSIC PLAYER
+37. MUSIC PLAYER — HOLOGRAPHIC ORBITAL DESIGN
+ONLY THE MUSIC PLAYER IS REDESIGNED
 ============================================================ */
 
 .music-player {
@@ -2409,40 +2409,44 @@ right: 24px;
 
 bottom: 24px;
 
-width: 330px;
+width: 310px;
 
-padding: 18px 18px 15px;
-
-border-radius: 26px;
-
-background:
-linear-gradient(
-145deg,
-rgba(12,8,29,.96),
-rgba(25,11,48,.91)
-);
+padding: 15px 16px 14px;
 
 border:
 1px solid
-rgba(210,190,255,.28);
+rgba(210,190,255,.32);
 
-backdrop-filter: blur(22px);
+border-radius: 22px;
 
--webkit-backdrop-filter: blur(22px);
+background:
+linear-gradient(
+135deg,
+rgba(9,7,25,.94),
+rgba(22,11,43,.92),
+rgba(8,14,34,.95)
+);
+
+backdrop-filter: blur(24px) saturate(145%);
+
+-webkit-backdrop-filter: blur(24px) saturate(145%);
 
 box-shadow:
 
-0 10px 35px
-rgba(0,0,0,.35),
+0 0 0 1px
+rgba(155,108,255,.05),
 
-0 0 20px
-rgba(155,108,255,.16),
+0 0 18px
+rgba(155,108,255,.22),
 
-0 0 65px
-rgba(155,108,255,.08),
+0 0 55px
+rgba(100,70,220,.13),
 
 inset 0 1px
-rgba(255,255,255,.08);
+rgba(255,255,255,.10),
+
+inset 0 -1px
+rgba(80,50,150,.18);
 
 z-index: 500;
 
@@ -2451,14 +2455,14 @@ overflow: hidden;
 isolation: isolate;
 
 transition:
-transform .45s ease,
-border-color .45s ease,
-box-shadow .45s ease;
+transform .45s cubic-bezier(.2,.8,.2,1),
+box-shadow .45s ease,
+border-color .45s ease;
 }
 
 
 /* ============================================================
-PLAYER ORBITAL GLOW
+HOLOGRAPHIC BORDER
 ============================================================ */
 
 .music-player::before {
@@ -2467,37 +2471,70 @@ content: "";
 
 position: absolute;
 
-width: 210px;
+inset: 0;
 
-height: 210px;
+padding: 1px;
 
-left: -105px;
+border-radius: inherit;
 
-top: -125px;
+background:
+linear-gradient(
+120deg,
+transparent 10%,
+rgba(210,190,255,.8) 28%,
+rgba(155,108,255,.95) 42%,
+transparent 55%,
+rgba(100,180,255,.45) 72%,
+transparent 90%
+);
 
-border-radius: 50%;
+-webkit-mask:
+linear-gradient(#000 0 0) content-box,
+linear-gradient(#000 0 0);
 
-border:
-1px solid
-rgba(155,108,255,.16);
+-webkit-mask-composite: xor;
 
-box-shadow:
+mask-composite: exclude;
 
-0 0 20px
-rgba(155,108,255,.12),
-
-inset 0 0 25px
-rgba(155,108,255,.08);
+opacity: .7;
 
 pointer-events: none;
 
 animation:
-musicOrbit
-7s
+playerBorderFlow
+6s
 linear
 infinite;
 }
 
+
+@keyframes playerBorderFlow {
+
+0% {
+filter:
+hue-rotate(0deg);
+transform:
+rotate(0deg);
+}
+
+50% {
+filter:
+hue-rotate(18deg);
+}
+
+100% {
+filter:
+hue-rotate(0deg);
+transform:
+rotate(0deg);
+}
+
+}
+
+
+/* ============================================================
+HOLOGRAPHIC LIGHT
+============================================================ */
 
 .music-player::after {
 
@@ -2505,74 +2542,62 @@ content: "";
 
 position: absolute;
 
-width: 170px;
+width: 220px;
 
-height: 170px;
+height: 220px;
 
-right: -80px;
+right: -120px;
 
-bottom: -110px;
+top: -130px;
 
 border-radius: 50%;
 
 background:
 radial-gradient(
 circle,
-rgba(155,108,255,.28),
-rgba(117,72,190,.10) 35%,
+rgba(155,108,255,.30),
+rgba(120,80,255,.12) 35%,
 transparent 72%
 );
 
-filter: blur(12px);
+filter: blur(20px);
 
 pointer-events: none;
 
+z-index: -1;
+
 animation:
-musicAmbient
-3s
+musicOrbitalGlow
+5s
 ease-in-out
 infinite;
 }
 
 
-@keyframes musicOrbit {
-
-0% {
-transform:
-rotate(0deg)
-scale(.92);
-opacity: .35;
-}
-
-50% {
-transform:
-rotate(180deg)
-scale(1.08);
-opacity: .8;
-}
-
-100% {
-transform:
-rotate(360deg)
-scale(.92);
-opacity: .35;
-}
-}
-
-
-@keyframes musicAmbient {
+@keyframes musicOrbitalGlow {
 
 0%, 100% {
-transform: scale(.8);
-opacity: .4;
+transform:
+translate(0,0)
+scale(.85);
+
+opacity: .55;
 }
 
 50% {
-transform: scale(1.25);
-opacity: .9;
-}
+transform:
+translate(-35px,30px)
+scale(1.15);
+
+opacity: .95;
 }
 
+}
+
+
+/* ============================================================
+PLAYER HOVER
+============================================================ */
 
 .music-player:hover {
 
@@ -2581,54 +2606,459 @@ translateY(-6px)
 scale(1.015);
 
 border-color:
-rgba(216,194,255,.5);
+rgba(220,205,255,.55);
 
 box-shadow:
 
-0 14px 40px
-rgba(0,0,0,.4),
+0 0 20px
+rgba(155,108,255,.35),
 
-0 0 25px
-rgba(155,108,255,.3),
+0 0 65px
+rgba(115,75,240,.20),
 
-0 0 80px
-rgba(155,108,255,.12),
+0 15px 45px
+rgba(0,0,0,.35),
 
 inset 0 1px
-rgba(255,255,255,.1);
+rgba(255,255,255,.14);
 }
 
 
 /* ============================================================
-TOP LIGHT SCANNER
+38. FUTURISTIC WAVE DECK
+============================================================ */
+
+.music-wave {
+
+position: relative;
+
+width: 100%;
+
+height: 58px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 4px;
+
+margin:
+0
+0
+13px;
+
+padding:
+0
+12px;
+
+border-radius: 15px;
+
+overflow: hidden;
+
+background:
+linear-gradient(
+180deg,
+rgba(155,108,255,.055),
+rgba(60,35,110,.10)
+);
+
+border:
+1px solid
+rgba(199,166,255,.10);
+
+box-shadow:
+
+inset 0 1px
+rgba(255,255,255,.05),
+
+inset 0 -10px 25px
+rgba(80,40,150,.08);
+}
+
+
+/* ============================================================
+WAVE SCANLINE
+============================================================ */
+
+.music-wave::before {
+
+content: "";
+
+position: absolute;
+
+left: -20%;
+
+width: 35%;
+
+height: 100%;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(220,205,255,.14),
+transparent
+);
+
+filter: blur(5px);
+
+transform:
+skewX(-18deg);
+
+animation:
+waveScanner
+3.5s
+linear
+infinite;
+}
+
+
+@keyframes waveScanner {
+
+0% {
+left: -40%;
+}
+
+100% {
+left: 120%;
+}
+
+}
+
+
+/* ============================================================
+WAVE CENTER ENERGY LINE
+============================================================ */
+
+.music-wave::after {
+
+content: "";
+
+position: absolute;
+
+left: 8%;
+
+right: 8%;
+
+top: 50%;
+
+height: 1px;
+
+background:
+linear-gradient(
+90deg,
+transparent,
+rgba(190,165,255,.25),
+rgba(235,225,255,.75),
+rgba(190,165,255,.25),
+transparent
+);
+
+box-shadow:
+0 0 6px
+rgba(155,108,255,.6),
+
+0 0 16px
+rgba(155,108,255,.25);
+
+opacity: .8;
+}
+
+
+/* ============================================================
+WAVE BARS
+============================================================ */
+
+.music-wave span {
+
+position: relative;
+
+z-index: 2;
+
+display: block;
+
+width: 3px;
+
+height: 10px;
+
+flex-shrink: 0;
+
+border-radius: 10px;
+
+background:
+linear-gradient(
+180deg,
+#f0e9ff 0%,
+#c7a6ff 28%,
+#9b6cff 65%,
+#5d38a8 100%
+);
+
+box-shadow:
+
+0 0 5px
+rgba(199,166,255,.9),
+
+0 0 12px
+rgba(155,108,255,.55),
+
+0 0 24px
+rgba(115,70,230,.20);
+
+opacity: .68;
+
+transform:
+scaleY(.65);
+
+transform-origin: center;
+
+transition:
+height .3s ease,
+opacity .3s ease;
+}
+
+
+/* ============================================================
+WAVE SHAPE
+============================================================ */
+
+.music-wave span:nth-child(1) {
+height: 10px;
+}
+
+.music-wave span:nth-child(2) {
+height: 18px;
+}
+
+.music-wave span:nth-child(3) {
+height: 29px;
+}
+
+.music-wave span:nth-child(4) {
+height: 20px;
+}
+
+.music-wave span:nth-child(5) {
+height: 38px;
+}
+
+.music-wave span:nth-child(6) {
+height: 25px;
+}
+
+.music-wave span:nth-child(7) {
+height: 46px;
+}
+
+.music-wave span:nth-child(8) {
+height: 32px;
+}
+
+.music-wave span:nth-child(9) {
+height: 52px;
+}
+
+.music-wave span:nth-child(10) {
+height: 39px;
+}
+
+.music-wave span:nth-child(11) {
+height: 48px;
+}
+
+.music-wave span:nth-child(12) {
+height: 31px;
+}
+
+.music-wave span:nth-child(13) {
+height: 43px;
+}
+
+.music-wave span:nth-child(14) {
+height: 25px;
+}
+
+.music-wave span:nth-child(15) {
+height: 37px;
+}
+
+.music-wave span:nth-child(16) {
+height: 21px;
+}
+
+.music-wave span:nth-child(17) {
+height: 28px;
+}
+
+.music-wave span:nth-child(18) {
+height: 12px;
+}
+
+
+/* ============================================================
+ACTIVE WAVE ANIMATION
+============================================================ */
+
+.music-playing .music-wave span {
+
+animation:
+holographicWave
+.9s
+ease-in-out
+infinite alternate;
+
+opacity: 1;
+}
+
+
+.music-wave span:nth-child(1) {
+animation-delay: -.12s;
+}
+
+.music-wave span:nth-child(2) {
+animation-delay: -.31s;
+}
+
+.music-wave span:nth-child(3) {
+animation-delay: -.52s;
+}
+
+.music-wave span:nth-child(4) {
+animation-delay: -.20s;
+}
+
+.music-wave span:nth-child(5) {
+animation-delay: -.68s;
+}
+
+.music-wave span:nth-child(6) {
+animation-delay: -.42s;
+}
+
+.music-wave span:nth-child(7) {
+animation-delay: -.83s;
+}
+
+.music-wave span:nth-child(8) {
+animation-delay: -.58s;
+}
+
+.music-wave span:nth-child(9) {
+animation-delay: -.94s;
+}
+
+.music-wave span:nth-child(10) {
+animation-delay: -.37s;
+}
+
+.music-wave span:nth-child(11) {
+animation-delay: -.76s;
+}
+
+.music-wave span:nth-child(12) {
+animation-delay: -.49s;
+}
+
+.music-wave span:nth-child(13) {
+animation-delay: -.87s;
+}
+
+.music-wave span:nth-child(14) {
+animation-delay: -.28s;
+}
+
+.music-wave span:nth-child(15) {
+animation-delay: -.61s;
+}
+
+.music-wave span:nth-child(16) {
+animation-delay: -.45s;
+}
+
+.music-wave span:nth-child(17) {
+animation-delay: -.72s;
+}
+
+.music-wave span:nth-child(18) {
+animation-delay: -.16s;
+}
+
+
+@keyframes holographicWave {
+
+0% {
+
+transform:
+scaleY(.28)
+scaleX(.75);
+
+opacity: .45;
+
+filter:
+brightness(.8);
+}
+
+50% {
+
+transform:
+scaleY(1.05)
+scaleX(1);
+
+opacity: .85;
+
+}
+
+100% {
+
+transform:
+scaleY(1.65)
+scaleX(1.15);
+
+opacity: 1;
+
+filter:
+brightness(1.5);
+}
+
+}
+
+
+/* ============================================================
+39. PLAYER TOP — NEW LAYOUT
 ============================================================ */
 
 .music-player-top {
 
 position: relative;
 
-z-index: 5;
-
 display: flex;
 
 align-items: center;
 
-gap: 14px;
+gap: 12px;
 
+padding:
+7px
+4px
+4px;
+
+z-index: 3;
 }
 
 
 /* ============================================================
-NEW HOLOGRAPHIC DISC
+ORBITAL DISC
 ============================================================ */
 
 .music-disc {
 
 position: relative;
 
-width: 70px;
+width: 58px;
 
-height: 70px;
+height: 58px;
 
 flex-shrink: 0;
 
@@ -2644,44 +3074,38 @@ background:
 
 radial-gradient(
 circle at center,
-#f0e7ff 0 4%,
-#8e65df 5% 9%,
-#130b24 10% 18%,
-transparent 19%
-),
-
-conic-gradient(
-from 0deg,
-#120920,
-#8b63e5,
-#24123f,
-#d6c3ff,
-#321957,
-#120920
+#d8c8ff 0 5%,
+#8060dc 6% 9%,
+#0a0916 10% 22%,
+transparent 23% 27%,
+#292047 28% 30%,
+#080914 31% 45%,
+transparent 46% 49%,
+#24173e 50% 53%,
+#070812 54% 70%,
+#302052 71% 73%,
+#070812 74% 100%
 );
 
 border:
 1px solid
-rgba(220,205,255,.55);
+rgba(220,205,255,.45);
 
 box-shadow:
 
 0 0 8px
-rgba(199,166,255,.75),
+rgba(155,108,255,.55),
 
-0 0 22px
-rgba(155,108,255,.5),
+0 0 20px
+rgba(155,108,255,.28),
 
-0 0 45px
-rgba(155,108,255,.2),
-
-inset 0 0 18px
-rgba(255,255,255,.12);
+0 0 35px
+rgba(110,70,220,.15);
 
 }
 
 
-/* Outer holographic ring */
+/* DISC OUTER RING */
 
 .music-disc::before {
 
@@ -2689,31 +3113,27 @@ content: "";
 
 position: absolute;
 
-inset: -7px;
+inset: -5px;
 
 border-radius: 50%;
 
 border:
 1px solid
-rgba(199,166,255,.28);
+rgba(199,166,255,.20);
 
 box-shadow:
-
-0 0 8px
-rgba(155,108,255,.35),
-
-0 0 20px
-rgba(155,108,255,.15);
+0 0 10px
+rgba(155,108,255,.22);
 
 animation:
 discRing
-2.8s
-ease-in-out
+3s
+linear
 infinite;
 }
 
 
-/* Inner ring */
+/* DISC LIGHT REFLECTION */
 
 .music-disc::after {
 
@@ -2721,63 +3141,68 @@ content: "";
 
 position: absolute;
 
-inset: 11px;
+inset: 3px;
 
 border-radius: 50%;
 
-border:
-1px solid
-rgba(216,194,255,.2);
+background:
+conic-gradient(
+from 20deg,
+transparent 0deg,
+rgba(255,255,255,.25) 45deg,
+transparent 80deg,
+transparent 180deg,
+rgba(155,108,255,.18) 240deg,
+transparent 300deg
+);
 
-box-shadow:
-inset 0 0 12px
-rgba(155,108,255,.3);
+pointer-events: none;
 }
 
 
 @keyframes discRing {
 
-0%, 100% {
-
+0% {
 transform:
-scale(.94);
-
-opacity: .45;
-
+rotate(0deg);
+opacity: .4;
 }
 
 50% {
+opacity: .85;
+}
 
+100% {
 transform:
-scale(1.08);
-
-opacity: 1;
-
+rotate(360deg);
+opacity: .4;
 }
 
 }
 
 
-/* Rotating holographic disc */
+/* DISC SPIN */
 
 .music-playing .music-disc {
 
 animation:
-discSpinRedesign
-4s
+discSpinNew
+5s
 linear
 infinite;
 }
 
 
-@keyframes discSpinRedesign {
+@keyframes discSpinNew {
 
 from {
-transform: rotate(0deg);
+transform:
+rotate(0deg);
 }
 
 to {
-transform: rotate(360deg);
+transform:
+rotate(360deg);
 }
 
 }
@@ -2791,11 +3216,11 @@ DISC CENTER
 
 position: relative;
 
-z-index: 5;
+z-index: 3;
 
-width: 13px;
+width: 15px;
 
-height: 13px;
+height: 15px;
 
 border-radius: 50%;
 
@@ -2809,25 +3234,26 @@ background:
 radial-gradient(
 circle,
 #ffffff,
-#c7a6ff 45%,
-#7043c2
+#d6c6ff 35%,
+#8c63e8 70%,
+#543394 100%
 );
 
-color: #ffffff;
+color:
+#ffffff;
 
-font-size: 5px;
+font-size: 6px;
 
 box-shadow:
 
-0 0 6px
+0 0 5px
 #ffffff,
 
-0 0 14px
-#9b6cff,
+0 0 12px
+#b99aff,
 
-0 0 24px
-rgba(155,108,255,.8);
-
+0 0 22px
+#8054e5;
 }
 
 
@@ -2837,16 +3263,13 @@ TRACK INFORMATION
 
 .music-details {
 
-position: relative;
-
-z-index: 5;
-
 min-width: 0;
 
 flex: 1;
 
 text-align: left;
 
+padding-right: 2px;
 }
 
 
@@ -2854,22 +3277,20 @@ text-align: left;
 
 display: block;
 
-font-family: var(--sans);
-
 font-size: 7px;
 
 letter-spacing: 3px;
-
-text-transform: uppercase;
 
 color:
 rgba(216,194,255,.55);
 
 margin-bottom: 4px;
 
+text-transform: uppercase;
+
 text-shadow:
 0 0 8px
-rgba(155,108,255,.35);
+rgba(155,108,255,.3);
 }
 
 
@@ -2881,11 +3302,11 @@ KALAPASTANGAN — STRONG GLOW
 
 font-family: var(--serif);
 
-font-size: 22px;
+font-size: 18px;
 
 font-weight: 600;
 
-line-height: 1;
+line-height: 1.1;
 
 color: #ffffff;
 
@@ -2895,71 +3316,63 @@ overflow: hidden;
 
 text-overflow: ellipsis;
 
-letter-spacing: .5px;
-
 text-shadow:
 
-0 0 3px #ffffff,
+0 0 4px
+#ffffff,
 
-0 0 8px #ffffff,
+0 0 10px
+#d8c2ff,
 
-0 0 15px #d8c2ff,
+0 0 22px
+#9b6cff,
 
-0 0 28px #9b6cff,
-
-0 0 48px #9b6cff,
-
-0 0 75px
-rgba(155,108,255,.7);
+0 0 38px
+rgba(155,108,255,.85);
 
 animation:
-kalapastanganGlow
+titleGlow
 2.4s
 ease-in-out
 infinite;
 }
 
 
-@keyframes kalapastanganGlow {
+@keyframes titleGlow {
 
 0%, 100% {
 
-filter:
-brightness(1);
-
 text-shadow:
 
-0 0 3px #ffffff,
+0 0 4px
+#ffffff,
 
-0 0 8px #ffffff,
+0 0 9px
+#d8c2ff,
 
-0 0 15px #d8c2ff,
+0 0 18px
+#9b6cff,
 
-0 0 28px #9b6cff,
-
-0 0 48px #9b6cff;
+0 0 30px
+rgba(155,108,255,.65);
 
 }
 
 50% {
 
-filter:
-brightness(1.3);
-
 text-shadow:
 
-0 0 4px #ffffff,
+0 0 5px
+#ffffff,
 
-0 0 10px #ffffff,
+0 0 12px
+#e5d9ff,
 
-0 0 20px #d8c2ff,
+0 0 26px
+#b18cff,
 
-0 0 38px #9b6cff,
-
-0 0 65px #9b6cff,
-
-0 0 95px
-rgba(155,108,255,.8);
+0 0 48px
+rgba(155,108,255,1);
 
 }
 
@@ -2970,27 +3383,27 @@ rgba(155,108,255,.8);
 
 font-size: 8px;
 
-letter-spacing: 1.5px;
+letter-spacing: 1.2px;
 
 margin-top: 5px;
 
 color:
-rgba(216,194,255,.55);
+rgba(216,194,255,.62);
 
 }
 
 
 /* ============================================================
-PLAY BUTTON — GLOWING ORB
+40. REACTOR PLAY BUTTON
 ============================================================ */
 
 .music-play-button {
 
 position: relative;
 
-width: 45px;
+width: 42px;
 
-height: 45px;
+height: 42px;
 
 flex-shrink: 0;
 
@@ -3001,17 +3414,17 @@ border:
 rgba(220,205,255,.55);
 
 background:
-
 radial-gradient(
-circle,
-rgba(199,166,255,.3),
-rgba(90,55,155,.16) 50%,
-rgba(20,10,38,.8)
+circle at 35% 30%,
+rgba(225,215,255,.30),
+rgba(155,108,255,.22) 38%,
+rgba(60,35,120,.30) 70%,
+rgba(8,8,22,.65)
 );
 
 color: #ffffff;
 
-font-size: 14px;
+font-size: 12px;
 
 cursor: pointer;
 
@@ -3026,20 +3439,22 @@ padding-left: 2px;
 box-shadow:
 
 0 0 8px
-rgba(155,108,255,.4),
+rgba(155,108,255,.35),
 
 0 0 18px
-rgba(155,108,255,.2),
+rgba(155,108,255,.18),
 
-inset 0 0 12px
-rgba(255,255,255,.08);
+inset 0 1px
+rgba(255,255,255,.18);
 
 transition:
 transform .3s ease,
 box-shadow .3s ease,
-background .3s ease;
+border-color .3s ease;
 }
 
+
+/* BUTTON ENERGY RING */
 
 .music-play-button::before {
 
@@ -3053,34 +3468,63 @@ border-radius: 50%;
 
 border:
 1px solid
-rgba(155,108,255,.22);
+rgba(155,108,255,.28);
+
+box-shadow:
+0 0 8px
+rgba(155,108,255,.25);
 
 animation:
-playRing
-2s
+buttonRing
+2.2s
 ease-in-out
 infinite;
 }
 
 
-@keyframes playRing {
+@keyframes buttonRing {
 
 0%, 100% {
 
-transform: scale(.9);
+transform:
+scale(.9);
 
-opacity: .3;
+opacity: .35;
 
 }
 
 50% {
 
-transform: scale(1.12);
+transform:
+scale(1.15);
 
 opacity: .9;
 
 }
 
+}
+
+
+/* BUTTON INNER LIGHT */
+
+.music-play-button::after {
+
+content: "";
+
+position: absolute;
+
+inset: 5px;
+
+border-radius: 50%;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.10),
+transparent 65%
+);
+
+pointer-events: none;
 }
 
 
@@ -3089,454 +3533,56 @@ opacity: .9;
 transform:
 scale(1.12);
 
-background:
-
-radial-gradient(
-circle,
-rgba(199,166,255,.42),
-rgba(90,55,155,.2)
-);
+border-color:
+#eee6ff;
 
 box-shadow:
 
 0 0 12px
-rgba(155,108,255,.7),
+rgba(199,166,255,.75),
 
 0 0 28px
-rgba(155,108,255,.35),
+rgba(155,108,255,.45),
 
-0 0 45px
-rgba(155,108,255,.15);
+0 0 50px
+rgba(155,108,255,.18);
 }
 
 
 .music-playing .music-play-button {
 
+border-color:
+rgba(235,225,255,.85);
+
 box-shadow:
 
 0 0 12px
-rgba(155,108,255,.75),
-
-0 0 25px
-rgba(155,108,255,.45),
-
-0 0 45px
-rgba(155,108,255,.2);
-}
-
-
-/* ============================================================
-MASSIVE AUDIO WAVE
-============================================================ */
-
-.music-wave {
-
-position: relative;
-
-width: 100%;
-
-height: 58px;
-
-margin:
-18px
-0
-10px;
-
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-gap: 4px;
-
-overflow: visible;
-
-z-index: 3;
-}
-
-
-/* Central glowing baseline */
-
-.music-wave::before {
-
-content: "";
-
-position: absolute;
-
-left: 0;
-
-right: 0;
-
-top: 50%;
-
-height: 1px;
-
-background:
-linear-gradient(
-90deg,
-transparent,
-rgba(155,108,255,.2),
-rgba(216,194,255,.9),
-rgba(155,108,255,.2),
-transparent
-);
-
-box-shadow:
-
-0 0 5px
-rgba(155,108,255,.7),
-
-0 0 15px
-rgba(155,108,255,.3);
-
-}
-
-
-/* Large atmospheric glow */
-
-.music-wave::after {
-
-content: "";
-
-position: absolute;
-
-left: 5%;
-
-right: 5%;
-
-top: 50%;
-
-height: 42px;
-
-transform:
-translateY(-50%);
-
-background:
-radial-gradient(
-ellipse,
-rgba(155,108,255,.18),
-transparent 65%
-);
-
-filter: blur(10px);
-
-pointer-events: none;
-
-animation:
-waveAtmosphere
-2s
-ease-in-out
-infinite;
-}
-
-
-@keyframes waveAtmosphere {
-
-0%, 100% {
-
-opacity: .35;
-
-transform:
-translateY(-50%)
-scaleX(.85);
-
-}
-
-50% {
-
-opacity: 1;
-
-transform:
-translateY(-50%)
-scaleX(1.08);
-
-}
-
-}
-
-
-/* ============================================================
-18 WAVE BARS
-============================================================ */
-
-.music-wave span {
-
-position: relative;
-
-z-index: 5;
-
-display: block;
-
-width: 3px;
-
-height: 12px;
-
-border-radius: 20px;
-
-background:
-linear-gradient(
-to top,
-#6841c5,
-#bfa7ff,
-#ffffff
-);
-
-box-shadow:
-
-0 0 5px
-rgba(155,108,255,.8),
-
-0 0 12px
-rgba(155,108,255,.45);
-
-opacity: .75;
-
-transform-origin: center;
-
-}
-
-
-/* Different wave heights */
-
-.music-wave span:nth-child(1) {
-height: 8px;
-}
-
-.music-wave span:nth-child(2) {
-height: 15px;
-}
-
-.music-wave span:nth-child(3) {
-height: 24px;
-}
-
-.music-wave span:nth-child(4) {
-height: 32px;
-}
-
-.music-wave span:nth-child(5) {
-height: 20px;
-}
-
-.music-wave span:nth-child(6) {
-height: 38px;
-}
-
-.music-wave span:nth-child(7) {
-height: 48px;
-}
-
-.music-wave span:nth-child(8) {
-height: 30px;
-}
-
-.music-wave span:nth-child(9) {
-height: 54px;
-}
-
-.music-wave span:nth-child(10) {
-height: 40px;
-}
-
-.music-wave span:nth-child(11) {
-height: 50px;
-}
-
-.music-wave span:nth-child(12) {
-height: 31px;
-}
-
-.music-wave span:nth-child(13) {
-height: 45px;
-}
-
-.music-wave span:nth-child(14) {
-height: 34px;
-}
-
-.music-wave span:nth-child(15) {
-height: 23px;
-}
-
-.music-wave span:nth-child(16) {
-height: 38px;
-}
-
-.music-wave span:nth-child(17) {
-height: 18px;
-}
-
-.music-wave span:nth-child(18) {
-height: 9px;
-}
-
-
-/* ============================================================
-WAVE PLAYING ANIMATION
-============================================================ */
-
-.music-playing .music-wave span {
-
-animation:
-massiveWave
-.85s
-ease-in-out
-infinite alternate;
-}
-
-
-.music-wave span:nth-child(1) {
-animation-delay: -.15s;
-}
-
-.music-wave span:nth-child(2) {
-animation-delay: -.3s;
-}
-
-.music-wave span:nth-child(3) {
-animation-delay: -.45s;
-}
-
-.music-wave span:nth-child(4) {
-animation-delay: -.6s;
-}
-
-.music-wave span:nth-child(5) {
-animation-delay: -.75s;
-}
-
-.music-wave span:nth-child(6) {
-animation-delay: -.9s;
-}
-
-.music-wave span:nth-child(7) {
-animation-delay: -1.05s;
-}
-
-.music-wave span:nth-child(8) {
-animation-delay: -.85s;
-}
-
-.music-wave span:nth-child(9) {
-animation-delay: -.65s;
-}
-
-.music-wave span:nth-child(10) {
-animation-delay: -.45s;
-}
-
-.music-wave span:nth-child(11) {
-animation-delay: -.25s;
-}
-
-.music-wave span:nth-child(12) {
-animation-delay: -.4s;
-}
-
-.music-wave span:nth-child(13) {
-animation-delay: -.6s;
-}
-
-.music-wave span:nth-child(14) {
-animation-delay: -.8s;
-}
-
-.music-wave span:nth-child(15) {
-animation-delay: -1s;
-}
-
-.music-wave span:nth-child(16) {
-animation-delay: -.7s;
-}
-
-.music-wave span:nth-child(17) {
-animation-delay: -.4s;
-}
-
-.music-wave span:nth-child(18) {
-animation-delay: -.2s;
-}
-
-
-@keyframes massiveWave {
-
-0% {
-
-transform:
-scaleY(.28);
-
-opacity: .45;
-
-filter:
-brightness(.8);
-
-}
-
-50% {
-
-opacity: .9;
-
-}
-
-100% {
-
-transform:
-scaleY(1.35);
-
-opacity: 1;
-
-filter:
-brightness(1.5);
-
-}
-
-}
-
-
-/* ============================================================
-STRONGER CENTER WAVE GLOW
-============================================================ */
-
-.music-wave span:nth-child(6),
-.music-wave span:nth-child(7),
-.music-wave span:nth-child(8),
-.music-wave span:nth-child(9),
-.music-wave span:nth-child(10),
-.music-wave span:nth-child(11),
-.music-wave span:nth-child(12),
-.music-wave span:nth-child(13) {
-
-width: 4px;
-
-box-shadow:
-
-0 0 7px
-#9b6cff,
-
-0 0 16px
-rgba(155,108,255,.75),
+rgba(216,194,255,.75),
 
 0 0 28px
-rgba(199,166,255,.35);
+rgba(155,108,255,.55),
+
+0 0 55px
+rgba(155,108,255,.28);
+
 }
 
 
 /* ============================================================
-PROGRESS BAR
+41. FUTURISTIC PROGRESS BAR
 ============================================================ */
 
 .music-progress-container {
 
 position: relative;
 
-z-index: 5;
+z-index: 4;
 
-margin-top: 7px;
+margin-top: 13px;
 
 padding:
 0
-2px;
+3px;
 }
 
 
@@ -3554,39 +3600,47 @@ border: none;
 
 outline: none;
 
-border-radius: 20px;
+border-radius: 10px;
 
 cursor: pointer;
 
 background:
-rgba(216,194,255,.1);
+rgba(216,194,255,.08);
 
 box-shadow:
+
 inset 0 0 5px
-rgba(0,0,0,.6);
+rgba(0,0,0,.5),
+
+0 0 5px
+rgba(155,108,255,.08);
 }
 
+
+/* WEBKIT TRACK */
 
 #progressBar::-webkit-slider-runnable-track {
 
 height: 4px;
 
-border-radius: 20px;
+border-radius: 10px;
 
 background:
 linear-gradient(
 90deg,
-#6540c0,
+#6542c4,
 #9b6cff,
 #d8c2ff,
-rgba(216,194,255,.08)
+rgba(216,194,255,.10)
 );
 
 box-shadow:
-0 0 5px
+0 0 7px
 rgba(155,108,255,.25);
 }
 
+
+/* WEBKIT THUMB */
 
 #progressBar::-webkit-slider-thumb {
 
@@ -3594,66 +3648,81 @@ appearance: none;
 
 -webkit-appearance: none;
 
-width: 9px;
+width: 10px;
 
-height: 9px;
+height: 10px;
 
-margin-top: -2.5px;
+margin-top: -3px;
 
-border: none;
+border: 1px solid
+rgba(255,255,255,.7);
 
 border-radius: 50%;
 
-background: #ffffff;
+background:
+#f5f0ff;
 
 box-shadow:
 
-0 0 5px #ffffff,
+0 0 5px
+#ffffff,
 
-0 0 12px #9b6cff,
+0 0 12px
+#b99aff,
 
 0 0 22px
-rgba(155,108,255,.7);
+#9b6cff;
 }
 
+
+/* FIREFOX */
 
 #progressBar::-moz-range-track {
 
 height: 4px;
 
-border-radius: 20px;
+border-radius: 10px;
 
 background:
 linear-gradient(
 90deg,
-#6540c0,
+#6542c4,
 #9b6cff,
 #d8c2ff,
-rgba(216,194,255,.08)
+rgba(216,194,255,.10)
 );
+
+box-shadow:
+0 0 7px
+rgba(155,108,255,.25);
 }
 
 
 #progressBar::-moz-range-thumb {
 
-width: 9px;
+width: 10px;
 
-height: 9px;
+height: 10px;
 
-border: none;
+border:
+1px solid
+rgba(255,255,255,.7);
 
 border-radius: 50%;
 
-background: #ffffff;
+background:
+#f5f0ff;
 
 box-shadow:
 
-0 0 5px #ffffff,
+0 0 5px
+#ffffff,
 
-0 0 12px #9b6cff,
+0 0 12px
+#b99aff,
 
 0 0 22px
-rgba(155,108,255,.7);
+#9b6cff;
 }
 
 
@@ -3671,54 +3740,66 @@ margin-top: 6px;
 
 font-size: 7px;
 
-letter-spacing: 1px;
+letter-spacing: .7px;
 
 color:
-rgba(216,194,255,.48);
-
+rgba(216,194,255,.50);
 }
 
 
 /* ============================================================
-ACTIVE PLAYER ENERGY
-============================================================ */
-
-.music-player.music-playing {
-
-border-color:
-rgba(199,166,255,.45);
-
-box-shadow:
-
-0 10px 35px
-rgba(0,0,0,.4),
-
-0 0 20px
-rgba(155,108,255,.25),
-
-0 0 60px
-rgba(155,108,255,.15),
-
-0 0 100px
-rgba(155,108,255,.06),
-
-inset 0 1px
-rgba(255,255,255,.1);
-}
-
-
-/* ============================================================
-MUSIC ERROR
+ERROR STATE
 ============================================================ */
 
 .music-error {
 
 border-color:
-rgba(255,120,170,.4);
+rgba(255,120,170,.45);
 
 box-shadow:
+
+0 0 18px
+rgba(255,90,160,.18),
+
+0 0 45px
+rgba(255,90,160,.10);
+}
+
+
+/* ============================================================
+PLAYING STATE — ENTIRE PLAYER COMES ALIVE
+============================================================ */
+
+.music-player.music-playing {
+
+border-color:
+rgba(199,166,255,.48);
+
+box-shadow:
+
 0 0 20px
-rgba(255,100,160,.12);
+rgba(155,108,255,.32),
+
+0 0 55px
+rgba(115,75,240,.18),
+
+0 0 90px
+rgba(90,50,180,.08),
+
+inset 0 1px
+rgba(255,255,255,.12);
+}
+
+
+.music-player.music-playing .music-wave {
+
+box-shadow:
+
+inset 0 1px
+rgba(255,255,255,.06),
+
+0 0 20px
+rgba(155,108,255,.10);
 }
 
 
@@ -3730,66 +3811,15 @@ MOBILE MUSIC PLAYER
 
 .music-player {
 
-right: 12px;
+right: 14px;
 
-bottom: 12px;
+bottom: 14px;
 
-width: 285px;
+width: 270px;
 
-padding: 14px;
+padding: 12px 13px 12px;
 
-border-radius: 22px;
-
-}
-
-
-.music-disc {
-
-width: 58px;
-
-height: 58px;
-
-}
-
-
-.music-disc-center {
-
-width: 11px;
-
-height: 11px;
-
-}
-
-
-.music-player-top {
-
-gap: 11px;
-
-}
-
-
-.music-details h3 {
-
-font-size: 19px;
-
-}
-
-
-.music-details p {
-
-font-size: 7px;
-
-}
-
-
-.music-play-button {
-
-width: 40px;
-
-height: 40px;
-
-font-size: 12px;
-
+border-radius: 19px;
 }
 
 
@@ -3797,83 +3827,70 @@ font-size: 12px;
 
 height: 48px;
 
-margin-top: 14px;
-
 gap: 3px;
 
+margin-bottom: 10px;
 }
 
 
-.music-wave span:nth-child(1) {
-height: 7px;
+.music-wave span {
+
+width: 2.5px;
 }
 
-.music-wave span:nth-child(2) {
-height: 12px;
+
+.music-player-top {
+
+gap: 10px;
+
+padding:
+5px
+3px
+3px;
 }
 
-.music-wave span:nth-child(3) {
-height: 20px;
+
+.music-disc {
+
+width: 49px;
+
+height: 49px;
 }
 
-.music-wave span:nth-child(4) {
-height: 27px;
+
+.music-disc-center {
+
+width: 13px;
+
+height: 13px;
 }
 
-.music-wave span:nth-child(5) {
-height: 18px;
+
+.music-details h3 {
+
+font-size: 16px;
 }
 
-.music-wave span:nth-child(6) {
-height: 32px;
+
+.music-details p {
+
+font-size: 7px;
 }
 
-.music-wave span:nth-child(7) {
-height: 40px;
-}
 
-.music-wave span:nth-child(8) {
-height: 26px;
-}
+.music-play-button {
 
-.music-wave span:nth-child(9) {
-height: 45px;
-}
+width: 37px;
 
-.music-wave span:nth-child(10) {
-height: 34px;
-}
-
-.music-wave span:nth-child(11) {
-height: 42px;
-}
-
-.music-wave span:nth-child(12) {
-height: 26px;
-}
-
-.music-wave span:nth-child(13) {
 height: 37px;
+
+font-size: 11px;
 }
 
-.music-wave span:nth-child(14) {
-height: 28px;
-}
 
-.music-wave span:nth-child(15) {
-height: 19px;
-}
+.music-progress-container {
 
-.music-wave span:nth-child(16) {
-height: 31px;
-}
-
-.music-wave span:nth-child(17) {
-height: 14px;
-}
-
-.music-wave span:nth-child(18) {
-height: 7px;
+margin-top: 11px;
 }
 
 }
@@ -3891,44 +3908,64 @@ right: 8px;
 
 bottom: 8px;
 
-width: calc(100% - 16px);
+width:
+calc(100% - 16px);
 
 max-width: 275px;
 
-padding: 12px;
+padding: 10px;
 
-border-radius: 20px;
+border-radius: 17px;
+}
 
+
+.music-wave {
+
+height: 43px;
+
+gap: 2.5px;
+
+margin-bottom: 8px;
+
+padding:
+0
+8px;
+}
+
+
+.music-wave span {
+
+width: 2px;
+}
+
+
+.music-player-top {
+
+gap: 8px;
 }
 
 
 .music-disc {
 
-width: 50px;
+width: 43px;
 
-height: 50px;
-
+height: 43px;
 }
 
 
-.music-disc::before {
+.music-disc-center {
 
-inset: -5px;
+width: 11px;
 
-}
+height: 11px;
 
-
-.music-disc::after {
-
-inset: 8px;
-
+font-size: 5px;
 }
 
 
 .music-details h3 {
 
-font-size: 17px;
-
+font-size: 14px;
 }
 
 
@@ -3936,6 +3973,7 @@ font-size: 17px;
 
 font-size: 6px;
 
+letter-spacing: .8px;
 }
 
 
@@ -3944,62 +3982,50 @@ font-size: 6px;
 font-size: 6px;
 
 letter-spacing: 2px;
-
 }
 
 
 .music-play-button {
 
-width: 36px;
+width: 33px;
 
-height: 36px;
+height: 33px;
 
-font-size: 11px;
-
+font-size: 10px;
 }
 
 
-.music-wave {
+.music-progress-container {
 
-height: 42px;
-
-gap: 2.5px;
-
-margin-top: 12px;
-
+margin-top: 9px;
 }
 
 
 .music-time {
 
 font-size: 6px;
-
 }
 
 }
 
 
 /* ============================================================
-REDUCED MOTION
+42. MUSIC REDUCED MOTION
 ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
 .music-player::before,
 .music-player::after,
+.music-disc::before,
 .music-playing .music-disc,
 .music-playing .music-wave span,
 .music-details h3,
 .music-play-button::before,
-.music-wave::after {
+.music-wave::before {
 
 animation: none !important;
 
 }
 
 }
-
-
-/* ============================================================
-END OF STYLESHEET
-============================================================ */
